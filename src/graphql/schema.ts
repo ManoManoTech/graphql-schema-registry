@@ -1,6 +1,8 @@
 import { gql } from 'apollo-server-express';
 
 export default gql`
+	directive @inherits(type: String!) on OBJECT
+
 	scalar Time
 	scalar Date
 	scalar DateTime
@@ -17,6 +19,10 @@ export default gql`
 		): [PersistedQuery]
 		persistedQuery(key: String!): PersistedQuery
 		persistedQueriesCount: Int!
+
+		listTypes: ListedTypes!
+		listTypeInstances(type: String!, limit: Int!, offset: Int!): ListedTypeInstances!
+		getTypeInstance(type: String!, id: Int!): FullTypeInstance!
 	}
 
 	type Mutation {
@@ -50,13 +56,165 @@ export default gql`
 		id: Int!
 		name: String!
 		url: String
+		updatedTime: Date
+		addedTime: Date
+		isActive: Boolean
 
-		schemas(limit: Int, offset: Int, filter: String): [SchemaDefinition!]!
+		schemas(limit: Int, offset: Int, filter: String): [SchemaDefinition!]
 	}
 
 	type PersistedQuery {
 		key: String
 		query: String
 		addedTime: String
+	}
+
+	enum Type {
+		SCALAR
+		ENUM
+		OBJECT
+		INTERFACE
+		UNION
+		INPUT
+		DIRECTIVE
+	}
+
+	enum Operation {
+		QUERY
+		MUTATION
+		SUBSCRIPTION
+	}
+
+	type TypeTotal {
+		type: Type!
+		count: Int!
+	}
+
+	type OperationTotal {
+		type: Operation!
+		count: Int!
+	}
+
+	type ListedTypes {
+		operations: [OperationTotal!]!
+		entities: [TypeTotal!]!
+	}
+
+	type Pagination {
+		page: Int!
+    	totalPages: Int!
+    	limit: Int!
+	}
+
+	type TypeInstance {
+		id: Int!
+        name: String!
+        description: String
+        type: String!
+        providedBy: [Service!]!
+	}
+
+	type ListedTypeInstances {
+		items: [TypeInstance!]!
+		pagination: Pagination!
+	}
+
+	type Nullable {
+		isNullable: Boolean!
+		isArray: Boolean!
+		isArrayNullable: Boolean!
+	}
+
+	type Parent {
+		id: Int!
+		name: String!
+		type: String!
+	}
+
+	type ArgumentParent {
+		id: Int!
+		name: String!
+		type: String!
+		isNullable: Boolean!
+		isArray: Boolean!
+		isArrayNullable: Boolean!
+	}
+
+	type Argument {
+        name: String!
+        description: String
+        parent: ArgumentParent!
+	}
+
+	type FieldDetails {
+		key: String!
+  		isDeprecated: Boolean!
+  		arguments: [Argument!]
+	}
+
+	type InputDetails {
+		key: String!
+  		isDeprecated: Boolean!
+	}
+
+	type OutputDetails {
+  		isDeprecated: Boolean!
+	}
+	
+	type ProvidedByDetails {
+		key: String!
+  		providedBy: [Service!]!
+	}
+
+	type Field {
+		description: String
+		parent: Parent!
+		isNullable: Boolean!
+		isArray: Boolean!
+		isArrayNullable: Boolean!
+		key: String!
+  		isDeprecated: Boolean!
+  		arguments: [Argument!]
+	}
+
+	type InputParam {
+		description: String
+		parent: Parent!
+		isNullable: Boolean!
+		isArray: Boolean!
+		isArrayNullable: Boolean!
+		key: String!
+  		isDeprecated: Boolean!
+	}
+
+	type OutputParam {
+		description: String
+		parent: Parent!
+		isNullable: Boolean!
+		isArray: Boolean!
+		isArrayNullable: Boolean!
+		isDeprecated: Boolean!
+	}
+
+	type ParamProvidedBy {
+		description: String
+		parent: Parent!
+		isNullable: Boolean!
+		isArray: Boolean!
+		isArrayNullable: Boolean!
+		key: String!
+  		providedBy: [Service!]!
+	}
+
+	type FullTypeInstance {
+		id: Int!
+        name: String!
+        description: String
+        type: String!
+		fields: [Field!]
+    	inputParams: [InputParam!]
+    	outputParams: [OutputParam!]
+    	usedBy: [ParamProvidedBy!]
+    	implementations: [ParamProvidedBy!]
 	}
 `;
