@@ -1,6 +1,6 @@
 import servicesModel from '../database/services';
-import {connection, transact} from '../database';
-import {TypeTransactionalRepository} from "../database/schemaBreakdown/type";
+import { connection, transact } from '../database';
+import { TypeTransactionalRepository } from '../database/schemaBreakdown/type';
 
 import { logger } from '../logger';
 
@@ -12,8 +12,10 @@ export async function deleteService({ name }) {
 			await typeRepository.removeTypesByService(trx);
 			logger.info('Deleted service from DB', { name });
 		} else {
-			logger.info('Service was not deleted from DB (not found)', { name });
+			logger.info('Service was not deleted from DB (not found)', {
+				name,
+			});
 		}
 		return services;
 	});
-};
+}
