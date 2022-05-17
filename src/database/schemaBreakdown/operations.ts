@@ -4,7 +4,11 @@ import { BreakDownRepository } from './breakdown';
 import { camelizeKeys } from 'humps';
 import { connection } from '../index';
 import { OperationType } from '../../model/enums';
-import { TypeInstance, TypeInstanceDetail, TypeInstanceRepository } from '../../model/repository';
+import {
+	TypeInstance,
+	TypeInstanceDetail,
+	TypeInstanceRepository,
+} from '../../model/repository';
 
 const table = 'type_def_operations';
 
@@ -25,10 +29,10 @@ export type OperationCount = {
 const TABLE_NAME = 'type_def_operations';
 const TABLE_COLUMNS = ['name', 'description', 'type', 'service_id'];
 
-export class OperationTransactionalRepository extends BreakDownRepository<
-	OperationPayload,
-	Operation
-> implements OperationService {
+export class OperationTransactionalRepository
+	extends BreakDownRepository<OperationPayload, Operation>
+	implements OperationService
+{
 	private static instance: OperationTransactionalRepository;
 
 	constructor() {
@@ -63,16 +67,23 @@ export class OperationTransactionalRepository extends BreakDownRepository<
 		const servicesTable = 'services';
 		const res = await connection(table)
 			.select()
-			.join( servicesTable, `${servicesTable}.id`, '=', `${table}.service_id`)
+			.join(
+				servicesTable,
+				`${servicesTable}.id`,
+				'=',
+				`${table}.service_id`
+			)
 			.where('type', type)
 			.limit(limit)
 			.offset(offset)
 			.options({ nestTables: true });
 
-		return res.map((row) => ({
-				...camelizeKeys(row[table]),
-				providedBy: [camelizeKeys(row[servicesTable])],
-			} as TypeInstance)
+		return res.map(
+			(row) =>
+				({
+					...camelizeKeys(row[table]),
+					providedBy: [camelizeKeys(row[servicesTable])],
+				} as TypeInstance)
 		);
 	}
 

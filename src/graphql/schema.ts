@@ -21,7 +21,11 @@ export default gql`
 		persistedQueriesCount: Int!
 
 		listTypes: ListedTypes!
-		listTypeInstances(type: String!, limit: Int!, offset: Int!): ListedTypeInstances!
+		listTypeInstances(
+			type: String!
+			limit: Int!
+			offset: Int!
+		): ListedTypeInstances!
 		getTypeInstance(type: String!, id: Int!): FullTypeInstance!
 	}
 
@@ -102,16 +106,16 @@ export default gql`
 
 	type Pagination {
 		page: Int!
-    	totalPages: Int!
-    	limit: Int!
+		totalPages: Int!
+		limit: Int!
 	}
 
 	type TypeInstance {
 		id: Int!
-        name: String!
-        description: String
-        type: String!
-        providedBy: [Service!]!
+		name: String!
+		description: String
+		type: String!
+		providedBy: [Service!]!
 	}
 
 	type ListedTypeInstances {
@@ -141,29 +145,29 @@ export default gql`
 	}
 
 	type Argument {
-        name: String!
-        description: String
-        parent: ArgumentParent!
+		name: String!
+		description: String
+		parent: ArgumentParent!
 	}
 
 	type FieldDetails {
 		key: String!
-  		isDeprecated: Boolean!
-  		arguments: [Argument!]
+		isDeprecated: Boolean!
+		arguments: [Argument!]
 	}
 
 	type InputDetails {
 		key: String!
-  		isDeprecated: Boolean!
+		isDeprecated: Boolean!
 	}
 
 	type OutputDetails {
-  		isDeprecated: Boolean!
+		isDeprecated: Boolean!
 	}
-	
+
 	type ProvidedByDetails {
 		key: String!
-  		providedBy: [Service!]!
+		providedBy: [Service!]!
 	}
 
 	type Field {
@@ -173,8 +177,8 @@ export default gql`
 		isArray: Boolean!
 		isArrayNullable: Boolean!
 		key: String!
-  		isDeprecated: Boolean!
-  		arguments: [Argument!]
+		isDeprecated: Boolean!
+		arguments: [Argument!]
 	}
 
 	type InputParam {
@@ -184,7 +188,7 @@ export default gql`
 		isArray: Boolean!
 		isArrayNullable: Boolean!
 		key: String!
-  		isDeprecated: Boolean!
+		isDeprecated: Boolean!
 	}
 
 	type OutputParam {
@@ -203,18 +207,18 @@ export default gql`
 		isArray: Boolean!
 		isArrayNullable: Boolean!
 		key: String!
-  		providedBy: [Service!]!
+		providedBy: [Service!]!
 	}
 
 	type FullTypeInstance {
 		id: Int!
-        name: String!
-        description: String
-        type: String!
+		name: String!
+		description: String
+		type: String!
 		fields: [Field!]
-    	inputParams: [InputParam!]
-    	outputParams: [OutputParam!]
-    	usedBy: [ParamProvidedBy!]
-    	implementations: [ParamProvidedBy!]
+		inputParams: [InputParam!]
+		outputParams: [OutputParam!]
+		usedBy: [ParamProvidedBy!]
+		implementations: [ParamProvidedBy!]
 	}
 `;
