@@ -1,7 +1,8 @@
-import * as logger from '../logger';
 import servicesModel from '../database/services';
 import {connection, transact} from '../database';
 import {TypeTransactionalRepository} from "../database/schemaBreakdown/type";
+
+import { logger } from '../logger';
 
 export async function deleteService({ name }) {
 	return await transact(async (trx) => {
