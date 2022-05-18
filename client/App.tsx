@@ -37,6 +37,7 @@ const App = ({ api }: AppProps) => {
 			uri: config.grapqhlEndpoint,
 			credentials: 'include',
 		}),
+		connectToDevTools: true,
 	});
 
 	return (
