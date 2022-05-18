@@ -107,6 +107,7 @@ export default gql`
 	type Pagination {
 		page: Int!
 		totalPages: Int!
+		total: Int!
 		limit: Int!
 	}
 

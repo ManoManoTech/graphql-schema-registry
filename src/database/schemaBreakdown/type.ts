@@ -16,7 +16,7 @@ const TABLE_NAME = 'type_def_types';
 const TABLE_COLUMNS = ['name', 'description', 'type'];
 
 interface TypeService extends TypeInstanceRepository {
-	getTypesByNames(trx: Transaction, typeNames: String[]): Promise<Type[]>;
+	getTypesByNames(trx: Transaction, typeNames: string[]): Promise<Type[]>;
 	insertIgnoreTypes(trx: Transaction, data: TypePayload[]): Promise<void>;
 	countTypesByType(): Promise<TypeCount[]>;
 }
