@@ -1,6 +1,8 @@
 import Knex, { Transaction } from 'knex';
 import { Operation, OperationPayload } from '../../model/operation';
 import { BreakDownRepository } from './breakdown';
+import knex from "knex";
+import {connection} from "../index";
 
 const TABLE_NAME = 'type_def_operations';
 const TABLE_COLUMNS = ['name', 'description', 'type', 'service_id'];
@@ -30,5 +32,10 @@ export class OperationTransactionalRepository extends BreakDownRepository<
 
 	async insertIgnoreOperations(trx: Transaction, data: OperationPayload[]) {
 		return super.insert(trx, data);
+	}
+
+	async getAll() {
+		return connection(TABLE_NAME)
+			.select();
 	}
 }
