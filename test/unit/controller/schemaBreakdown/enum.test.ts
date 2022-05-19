@@ -1,22 +1,22 @@
-import {getTypeDefDataMock, SchemaBreakdownMock} from "./mocks/breakDownStrategy.mock";
-import {EnumStrategy} from "../../../../src/controller/schemaBreakdown/enum";
+import {
+	getTypeDefDataMock,
+	SchemaBreakdownMock,
+} from './mocks/breakDownStrategy.mock';
+import { EnumStrategy } from '../../../../src/controller/schemaBreakdown/enum';
 
 describe('Breaking down enums from schema', () => {
 	const strategy = new EnumStrategy();
 
 	test('No enums on the schema', () => {
-		const mock = new SchemaBreakdownMock()
-			.build();
+		const mock = new SchemaBreakdownMock().build();
 		const data = getTypeDefDataMock(mock);
 
 		const entities = strategy.getEntities(data);
 		expect(entities.length).toEqual(0);
-	})
+	});
 
 	test('Enums exists on schema', () => {
-		const mock = new SchemaBreakdownMock()
-			.addEnums()
-			.build();
+		const mock = new SchemaBreakdownMock().addEnums().build();
 		const data = getTypeDefDataMock(mock);
 
 		const entities = strategy.getEntities(data);
@@ -32,6 +32,5 @@ describe('Breaking down enums from schema', () => {
 
 		const entities = strategy.getEntities(data);
 		expect(entities.length).toEqual(1);
-	})
-})
-
+	});
+});

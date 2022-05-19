@@ -1,1311 +1,1313 @@
-import {ITypeDefData} from "../../../../../src/controller/schemaBreakdown/strategy";
-import {DocumentNodeType} from "../../../../../src/model/enums";
+import { ITypeDefData } from '../../../../../src/controller/schemaBreakdown/strategy';
+import { DocumentNodeType } from '../../../../../src/model/enums';
 
 export const typeDefDataMock: Partial<ITypeDefData> = {
 	dbMap: new Map<string, number>(),
 	subgraphTypes: [],
 	trx: null,
-	service_id: 1
-}
+	service_id: 1,
+};
 
-export const getTypeDefDataMock = (mappedTypes: Map<string, any[]>): ITypeDefData => {
+export const getTypeDefDataMock = (
+	mappedTypes: Map<string, any[]>
+): ITypeDefData => {
 	return {
 		mappedTypes,
-		...typeDefDataMock
+		...typeDefDataMock,
 	} as ITypeDefData;
-}
+};
 
 const directiveMock = {
-	kind: "DirectiveDefinition",
+	kind: 'DirectiveDefinition',
 	name: {
-		kind: "Name",
-		value: "requires",
+		kind: 'Name',
+		value: 'requires',
 		loc: {
 			start: 246,
-			end: 254
-		}
+			end: 254,
+		},
 	},
 	arguments: [
 		{
-			kind: "InputValueDefinition",
+			kind: 'InputValueDefinition',
 			name: {
-				kind: "Name",
-				value: "fields",
+				kind: 'Name',
+				value: 'fields',
 				loc: {
 					start: 255,
-					end: 261
-				}
+					end: 261,
+				},
 			},
 			type: {
-				kind: "NonNullType",
+				kind: 'NonNullType',
 				type: {
-					kind: "NamedType",
+					kind: 'NamedType',
 					name: {
-						kind: "Name",
-						value: "String",
+						kind: 'Name',
+						value: 'String',
 						loc: {
 							start: 263,
-							end: 269
-						}
+							end: 269,
+						},
 					},
 					loc: {
 						start: 263,
-						end: 269
-					}
+						end: 269,
+					},
 				},
 				loc: {
 					start: 263,
-					end: 270
-				}
+					end: 270,
+				},
 			},
 			directives: [],
 			loc: {
 				start: 255,
-				end: 270
-			}
-		}
+				end: 270,
+			},
+		},
 	],
 	repeatable: false,
 	locations: [
 		{
-			kind: "Name",
-			value: "FIELD_DEFINITION",
+			kind: 'Name',
+			value: 'FIELD_DEFINITION',
 			loc: {
 				start: 275,
-				end: 291
-			}
-		}
+				end: 291,
+			},
+		},
 	],
 	loc: {
 		start: 235,
-		end: 291
-	}
+		end: 291,
+	},
 };
 const enumMock = {
-	kind: "EnumTypeDefinition",
+	kind: 'EnumTypeDefinition',
 	name: {
-		kind: "Name",
-		value: "Platform",
+		kind: 'Name',
+		value: 'Platform',
 		loc: {
 			start: 597,
-			end: 605
-		}
+			end: 605,
+		},
 	},
 	directives: [],
 	values: [
 		{
-			kind: "EnumValueDefinition",
+			kind: 'EnumValueDefinition',
 			name: {
-				kind: "Name",
-				value: "DE",
+				kind: 'Name',
+				value: 'DE',
 				loc: {
 					start: 610,
-					end: 612
-				}
+					end: 612,
+				},
 			},
 			directives: [],
 			loc: {
 				start: 610,
-				end: 612
-			}
+				end: 612,
+			},
 		},
 		{
-			kind: "EnumValueDefinition",
+			kind: 'EnumValueDefinition',
 			name: {
-				kind: "Name",
-				value: "ES",
+				kind: 'Name',
+				value: 'ES',
 				loc: {
 					start: 615,
-					end: 617
-				}
+					end: 617,
+				},
 			},
 			directives: [],
 			loc: {
 				start: 615,
-				end: 617
-			}
+				end: 617,
+			},
 		},
 		{
-			kind: "EnumValueDefinition",
+			kind: 'EnumValueDefinition',
 			name: {
-				kind: "Name",
-				value: "FR",
+				kind: 'Name',
+				value: 'FR',
 				loc: {
 					start: 620,
-					end: 622
-				}
+					end: 622,
+				},
 			},
 			directives: [],
 			loc: {
 				start: 620,
-				end: 622
-			}
+				end: 622,
+			},
 		},
 		{
-			kind: "EnumValueDefinition",
+			kind: 'EnumValueDefinition',
 			name: {
-				kind: "Name",
-				value: "GB",
+				kind: 'Name',
+				value: 'GB',
 				loc: {
 					start: 625,
-					end: 627
-				}
+					end: 627,
+				},
 			},
 			directives: [],
 			loc: {
 				start: 625,
-				end: 627
-			}
+				end: 627,
+			},
 		},
 		{
-			kind: "EnumValueDefinition",
+			kind: 'EnumValueDefinition',
 			name: {
-				kind: "Name",
-				value: "IT",
+				kind: 'Name',
+				value: 'IT',
 				loc: {
 					start: 630,
-					end: 632
-				}
+					end: 632,
+				},
 			},
 			directives: [],
 			loc: {
 				start: 630,
-				end: 632
-			}
-		}
+				end: 632,
+			},
+		},
 	],
 	loc: {
 		start: 592,
-		end: 634
-	}
+		end: 634,
+	},
 };
 const scalarMock = {
-	kind: "ScalarTypeDefinition",
+	kind: 'ScalarTypeDefinition',
 	name: {
-		kind: "Name",
-		value: "_Any",
+		kind: 'Name',
+		value: '_Any',
 		loc: {
 			start: 878,
-			end: 882
-		}
+			end: 882,
+		},
 	},
 	directives: [],
 	loc: {
 		start: 871,
-		end: 882
-	}
+		end: 882,
+	},
 };
 const unionMock = {
-	kind: "UnionTypeDefinition",
+	kind: 'UnionTypeDefinition',
 	name: {
-		kind: "Name",
-		value: "_Entity",
+		kind: 'Name',
+		value: '_Entity',
 		loc: {
 			start: 890,
-			end: 897
-		}
+			end: 897,
+		},
 	},
 	directives: [],
 	types: [
 		{
-			kind: "NamedType",
+			kind: 'NamedType',
 			name: {
-				kind: "Name",
-				value: "Brand",
+				kind: 'Name',
+				value: 'Brand',
 				loc: {
 					start: 900,
-					end: 905
-				}
+					end: 905,
+				},
 			},
 			loc: {
 				start: 900,
-				end: 905
-			}
-		}
+				end: 905,
+			},
+		},
 	],
 	loc: {
 		start: 884,
-		end: 905
-	}
+		end: 905,
+	},
 };
 const queryMock = {
-	kind: "ObjectTypeDefinition",
+	kind: 'ObjectTypeDefinition',
 	name: {
-		kind: "Name",
-		value: "Query",
+		kind: 'Name',
+		value: 'Query',
 		loc: {
 			start: 641,
-			end: 646
-		}
+			end: 646,
+		},
 	},
 	interfaces: [],
 	directives: [],
 	fields: [
 		{
-			kind: "FieldDefinition",
+			kind: 'FieldDefinition',
 			name: {
-				kind: "Name",
-				value: "_entities",
+				kind: 'Name',
+				value: '_entities',
 				loc: {
 					start: 651,
-					end: 660
-				}
+					end: 660,
+				},
 			},
 			arguments: [
 				{
-					kind: "InputValueDefinition",
+					kind: 'InputValueDefinition',
 					name: {
-						kind: "Name",
-						value: "representations",
+						kind: 'Name',
+						value: 'representations',
 						loc: {
 							start: 661,
-							end: 676
-						}
+							end: 676,
+						},
 					},
 					type: {
-						kind: "NonNullType",
+						kind: 'NonNullType',
 						type: {
-							kind: "ListType",
+							kind: 'ListType',
 							type: {
-								kind: "NonNullType",
+								kind: 'NonNullType',
 								type: {
-									kind: "NamedType",
+									kind: 'NamedType',
 									name: {
-										kind: "Name",
-										value: "_Any",
+										kind: 'Name',
+										value: '_Any',
 										loc: {
 											start: 679,
-											end: 683
-										}
+											end: 683,
+										},
 									},
 									loc: {
 										start: 679,
-										end: 683
-									}
+										end: 683,
+									},
 								},
 								loc: {
 									start: 679,
-									end: 684
-								}
+									end: 684,
+								},
 							},
 							loc: {
 								start: 678,
-								end: 685
-							}
+								end: 685,
+							},
 						},
 						loc: {
 							start: 678,
-							end: 686
-						}
+							end: 686,
+						},
 					},
 					directives: [],
 					loc: {
 						start: 661,
-						end: 686
-					}
-				}
+						end: 686,
+					},
+				},
 			],
 			type: {
-				kind: "NonNullType",
+				kind: 'NonNullType',
 				type: {
-					kind: "ListType",
+					kind: 'ListType',
 					type: {
-						kind: "NamedType",
+						kind: 'NamedType',
 						name: {
-							kind: "Name",
-							value: "_Entity",
+							kind: 'Name',
+							value: '_Entity',
 							loc: {
 								start: 690,
-								end: 697
-							}
+								end: 697,
+							},
 						},
 						loc: {
 							start: 690,
-							end: 697
-						}
+							end: 697,
+						},
 					},
 					loc: {
 						start: 689,
-						end: 698
-					}
+						end: 698,
+					},
 				},
 				loc: {
 					start: 689,
-					end: 699
-				}
+					end: 699,
+				},
 			},
 			directives: [],
 			loc: {
 				start: 651,
-				end: 699
-			}
+				end: 699,
+			},
 		},
 		{
-			kind: "FieldDefinition",
+			kind: 'FieldDefinition',
 			name: {
-				kind: "Name",
-				value: "_service",
+				kind: 'Name',
+				value: '_service',
 				loc: {
 					start: 702,
-					end: 710
-				}
+					end: 710,
+				},
 			},
 			arguments: [],
 			type: {
-				kind: "NonNullType",
+				kind: 'NonNullType',
 				type: {
-					kind: "NamedType",
+					kind: 'NamedType',
 					name: {
-						kind: "Name",
-						value: "_Service",
+						kind: 'Name',
+						value: '_Service',
 						loc: {
 							start: 712,
-							end: 720
-						}
+							end: 720,
+						},
 					},
 					loc: {
 						start: 712,
-						end: 720
-					}
+						end: 720,
+					},
 				},
 				loc: {
 					start: 712,
-					end: 721
-				}
+					end: 721,
+				},
 			},
 			directives: [],
 			loc: {
 				start: 702,
-				end: 721
-			}
+				end: 721,
+			},
 		},
 		{
-			kind: "FieldDefinition",
+			kind: 'FieldDefinition',
 			name: {
-				kind: "Name",
-				value: "brand",
+				kind: 'Name',
+				value: 'brand',
 				loc: {
 					start: 724,
-					end: 729
-				}
+					end: 729,
+				},
 			},
 			arguments: [
 				{
-					kind: "InputValueDefinition",
+					kind: 'InputValueDefinition',
 					name: {
-						kind: "Name",
-						value: "brandId",
+						kind: 'Name',
+						value: 'brandId',
 						loc: {
 							start: 730,
-							end: 737
-						}
+							end: 737,
+						},
 					},
 					type: {
-						kind: "NonNullType",
+						kind: 'NonNullType',
 						type: {
-							kind: "NamedType",
+							kind: 'NamedType',
 							name: {
-								kind: "Name",
-								value: "Int",
+								kind: 'Name',
+								value: 'Int',
 								loc: {
 									start: 739,
-									end: 742
-								}
+									end: 742,
+								},
 							},
 							loc: {
 								start: 739,
-								end: 742
-							}
+								end: 742,
+							},
 						},
 						loc: {
 							start: 739,
-							end: 743
-						}
+							end: 743,
+						},
 					},
 					directives: [],
 					loc: {
 						start: 730,
-						end: 743
-					}
+						end: 743,
+					},
 				},
 				{
-					kind: "InputValueDefinition",
+					kind: 'InputValueDefinition',
 					name: {
-						kind: "Name",
-						value: "market",
+						kind: 'Name',
+						value: 'market',
 						loc: {
 							start: 745,
-							end: 751
-						}
+							end: 751,
+						},
 					},
 					type: {
-						kind: "NonNullType",
+						kind: 'NonNullType',
 						type: {
-							kind: "NamedType",
+							kind: 'NamedType',
 							name: {
-								kind: "Name",
-								value: "Market",
+								kind: 'Name',
+								value: 'Market',
 								loc: {
 									start: 753,
-									end: 759
-								}
+									end: 759,
+								},
 							},
 							loc: {
 								start: 753,
-								end: 759
-							}
+								end: 759,
+							},
 						},
 						loc: {
 							start: 753,
-							end: 760
-						}
+							end: 760,
+						},
 					},
 					directives: [],
 					loc: {
 						start: 745,
-						end: 760
-					}
+						end: 760,
+					},
 				},
 				{
-					kind: "InputValueDefinition",
+					kind: 'InputValueDefinition',
 					name: {
-						kind: "Name",
-						value: "platform",
+						kind: 'Name',
+						value: 'platform',
 						loc: {
 							start: 762,
-							end: 770
-						}
+							end: 770,
+						},
 					},
 					type: {
-						kind: "NonNullType",
+						kind: 'NonNullType',
 						type: {
-							kind: "NamedType",
+							kind: 'NamedType',
 							name: {
-								kind: "Name",
-								value: "Platform",
+								kind: 'Name',
+								value: 'Platform',
 								loc: {
 									start: 772,
-									end: 780
-								}
+									end: 780,
+								},
 							},
 							loc: {
 								start: 772,
-								end: 780
-							}
+								end: 780,
+							},
 						},
 						loc: {
 							start: 772,
-							end: 781
-						}
+							end: 781,
+						},
 					},
 					directives: [],
 					loc: {
 						start: 762,
-						end: 781
-					}
-				}
+						end: 781,
+					},
+				},
 			],
 			type: {
-				kind: "NonNullType",
+				kind: 'NonNullType',
 				type: {
-					kind: "NamedType",
+					kind: 'NamedType',
 					name: {
-						kind: "Name",
-						value: "Brand",
+						kind: 'Name',
+						value: 'Brand',
 						loc: {
 							start: 784,
-							end: 789
-						}
+							end: 789,
+						},
 					},
 					loc: {
 						start: 784,
-						end: 789
-					}
+						end: 789,
+					},
 				},
 				loc: {
 					start: 784,
-					end: 790
-				}
+					end: 790,
+				},
 			},
 			directives: [],
 			loc: {
 				start: 724,
-				end: 790
-			}
+				end: 790,
+			},
 		},
 		{
-			kind: "FieldDefinition",
+			kind: 'FieldDefinition',
 			name: {
-				kind: "Name",
-				value: "brands",
+				kind: 'Name',
+				value: 'brands',
 				loc: {
 					start: 793,
-					end: 799
-				}
+					end: 799,
+				},
 			},
 			arguments: [
 				{
-					kind: "InputValueDefinition",
+					kind: 'InputValueDefinition',
 					name: {
-						kind: "Name",
-						value: "brandIds",
+						kind: 'Name',
+						value: 'brandIds',
 						loc: {
 							start: 800,
-							end: 808
-						}
+							end: 808,
+						},
 					},
 					type: {
-						kind: "NonNullType",
+						kind: 'NonNullType',
 						type: {
-							kind: "ListType",
+							kind: 'ListType',
 							type: {
-								kind: "NonNullType",
+								kind: 'NonNullType',
 								type: {
-									kind: "NamedType",
+									kind: 'NamedType',
 									name: {
-										kind: "Name",
-										value: "Int",
+										kind: 'Name',
+										value: 'Int',
 										loc: {
 											start: 811,
-											end: 814
-										}
+											end: 814,
+										},
 									},
 									loc: {
 										start: 811,
-										end: 814
-									}
+										end: 814,
+									},
 								},
 								loc: {
 									start: 811,
-									end: 815
-								}
+									end: 815,
+								},
 							},
 							loc: {
 								start: 810,
-								end: 816
-							}
+								end: 816,
+							},
 						},
 						loc: {
 							start: 810,
-							end: 817
-						}
+							end: 817,
+						},
 					},
 					directives: [],
 					loc: {
 						start: 800,
-						end: 817
-					}
+						end: 817,
+					},
 				},
 				{
-					kind: "InputValueDefinition",
+					kind: 'InputValueDefinition',
 					name: {
-						kind: "Name",
-						value: "market",
+						kind: 'Name',
+						value: 'market',
 						loc: {
 							start: 819,
-							end: 825
-						}
+							end: 825,
+						},
 					},
 					type: {
-						kind: "NonNullType",
+						kind: 'NonNullType',
 						type: {
-							kind: "NamedType",
+							kind: 'NamedType',
 							name: {
-								kind: "Name",
-								value: "Market",
+								kind: 'Name',
+								value: 'Market',
 								loc: {
 									start: 827,
-									end: 833
-								}
+									end: 833,
+								},
 							},
 							loc: {
 								start: 827,
-								end: 833
-							}
+								end: 833,
+							},
 						},
 						loc: {
 							start: 827,
-							end: 834
-						}
+							end: 834,
+						},
 					},
 					directives: [],
 					loc: {
 						start: 819,
-						end: 834
-					}
+						end: 834,
+					},
 				},
 				{
-					kind: "InputValueDefinition",
+					kind: 'InputValueDefinition',
 					name: {
-						kind: "Name",
-						value: "platform",
+						kind: 'Name',
+						value: 'platform',
 						loc: {
 							start: 836,
-							end: 844
-						}
+							end: 844,
+						},
 					},
 					type: {
-						kind: "NonNullType",
+						kind: 'NonNullType',
 						type: {
-							kind: "NamedType",
+							kind: 'NamedType',
 							name: {
-								kind: "Name",
-								value: "Platform",
+								kind: 'Name',
+								value: 'Platform',
 								loc: {
 									start: 846,
-									end: 854
-								}
+									end: 854,
+								},
 							},
 							loc: {
 								start: 846,
-								end: 854
-							}
+								end: 854,
+							},
 						},
 						loc: {
 							start: 846,
-							end: 855
-						}
+							end: 855,
+						},
 					},
 					directives: [],
 					loc: {
 						start: 836,
-						end: 855
-					}
-				}
+						end: 855,
+					},
+				},
 			],
 			type: {
-				kind: "NonNullType",
+				kind: 'NonNullType',
 				type: {
-					kind: "ListType",
+					kind: 'ListType',
 					type: {
-						kind: "NonNullType",
+						kind: 'NonNullType',
 						type: {
-							kind: "NamedType",
+							kind: 'NamedType',
 							name: {
-								kind: "Name",
-								value: "Brand",
+								kind: 'Name',
+								value: 'Brand',
 								loc: {
 									start: 859,
-									end: 864
-								}
+									end: 864,
+								},
 							},
 							loc: {
 								start: 859,
-								end: 864
-							}
+								end: 864,
+							},
 						},
 						loc: {
 							start: 859,
-							end: 865
-						}
+							end: 865,
+						},
 					},
 					loc: {
 						start: 858,
-						end: 866
-					}
+						end: 866,
+					},
 				},
 				loc: {
 					start: 858,
-					end: 867
-				}
+					end: 867,
+				},
 			},
 			directives: [],
 			loc: {
 				start: 793,
-				end: 867
-			}
-		}
+				end: 867,
+			},
+		},
 	],
 	loc: {
 		start: 636,
-		end: 869
-	}
+		end: 869,
+	},
 };
 const objectMock = {
-	kind: "ObjectTypeDefinition",
+	kind: 'ObjectTypeDefinition',
 	name: {
-		kind: "Name",
-		value: "Brand",
+		kind: 'Name',
+		value: 'Brand',
 		loc: {
 			start: 298,
-			end: 303
-		}
+			end: 303,
+		},
 	},
 	interfaces: [],
 	directives: [
 		{
-			kind: "Directive",
+			kind: 'Directive',
 			name: {
-				kind: "Name",
-				value: "key",
+				kind: 'Name',
+				value: 'key',
 				loc: {
 					start: 305,
-					end: 308
-				}
+					end: 308,
+				},
 			},
 			arguments: [
 				{
-					kind: "Argument",
+					kind: 'Argument',
 					name: {
-						kind: "Name",
-						value: "fields",
+						kind: 'Name',
+						value: 'fields',
 						loc: {
 							start: 309,
-							end: 315
-						}
+							end: 315,
+						},
 					},
 					value: {
-						kind: "StringValue",
-						value: "id",
+						kind: 'StringValue',
+						value: 'id',
 						block: false,
 						loc: {
 							start: 317,
-							end: 321
-						}
+							end: 321,
+						},
 					},
 					loc: {
 						start: 309,
-						end: 321
-					}
-				}
+						end: 321,
+					},
+				},
 			],
 			loc: {
 				start: 304,
-				end: 322
-			}
+				end: 322,
+			},
 		},
 		{
-			kind: "Directive",
+			kind: 'Directive',
 			name: {
-				kind: "Name",
-				value: "key",
+				kind: 'Name',
+				value: 'key',
 				loc: {
 					start: 324,
-					end: 327
-				}
+					end: 327,
+				},
 			},
 			arguments: [
 				{
-					kind: "Argument",
+					kind: 'Argument',
 					name: {
-						kind: "Name",
-						value: "fields",
+						kind: 'Name',
+						value: 'fields',
 						loc: {
 							start: 328,
-							end: 334
-						}
+							end: 334,
+						},
 					},
 					value: {
-						kind: "StringValue",
-						value: "brandId",
+						kind: 'StringValue',
+						value: 'brandId',
 						block: false,
 						loc: {
 							start: 336,
-							end: 345
-						}
+							end: 345,
+						},
 					},
 					loc: {
 						start: 328,
-						end: 345
-					}
-				}
+						end: 345,
+					},
+				},
 			],
 			loc: {
 				start: 323,
-				end: 346
-			}
+				end: 346,
+			},
 		},
 		{
-			kind: "Directive",
+			kind: 'Directive',
 			name: {
-				kind: "Name",
-				value: "key",
+				kind: 'Name',
+				value: 'key',
 				loc: {
 					start: 348,
-					end: 351
-				}
+					end: 351,
+				},
 			},
 			arguments: [
 				{
-					kind: "Argument",
+					kind: 'Argument',
 					name: {
-						kind: "Name",
-						value: "fields",
+						kind: 'Name',
+						value: 'fields',
 						loc: {
 							start: 352,
-							end: 358
-						}
+							end: 358,
+						},
 					},
 					value: {
-						kind: "StringValue",
-						value: "id market platform",
+						kind: 'StringValue',
+						value: 'id market platform',
 						block: false,
 						loc: {
 							start: 360,
-							end: 380
-						}
+							end: 380,
+						},
 					},
 					loc: {
 						start: 352,
-						end: 380
-					}
-				}
+						end: 380,
+					},
+				},
 			],
 			loc: {
 				start: 347,
-				end: 381
-			}
+				end: 381,
+			},
 		},
 		{
-			kind: "Directive",
+			kind: 'Directive',
 			name: {
-				kind: "Name",
-				value: "key",
+				kind: 'Name',
+				value: 'key',
 				loc: {
 					start: 383,
-					end: 386
-				}
+					end: 386,
+				},
 			},
 			arguments: [
 				{
-					kind: "Argument",
+					kind: 'Argument',
 					name: {
-						kind: "Name",
-						value: "fields",
+						kind: 'Name',
+						value: 'fields',
 						loc: {
 							start: 387,
-							end: 393
-						}
+							end: 393,
+						},
 					},
 					value: {
-						kind: "StringValue",
-						value: "brandId market platform",
+						kind: 'StringValue',
+						value: 'brandId market platform',
 						block: false,
 						loc: {
 							start: 395,
-							end: 420
-						}
+							end: 420,
+						},
 					},
 					loc: {
 						start: 387,
-						end: 420
-					}
-				}
+						end: 420,
+					},
+				},
 			],
 			loc: {
 				start: 382,
-				end: 421
-			}
-		}
+				end: 421,
+			},
+		},
 	],
 	fields: [
 		{
-			kind: "FieldDefinition",
+			kind: 'FieldDefinition',
 			name: {
-				kind: "Name",
-				value: "brandId",
+				kind: 'Name',
+				value: 'brandId',
 				loc: {
 					start: 426,
-					end: 433
-				}
+					end: 433,
+				},
 			},
 			arguments: [],
 			type: {
-				kind: "NonNullType",
+				kind: 'NonNullType',
 				type: {
-					kind: "NamedType",
+					kind: 'NamedType',
 					name: {
-						kind: "Name",
-						value: "Int",
+						kind: 'Name',
+						value: 'Int',
 						loc: {
 							start: 435,
-							end: 438
-						}
+							end: 438,
+						},
 					},
 					loc: {
 						start: 435,
-						end: 438
-					}
+						end: 438,
+					},
 				},
 				loc: {
 					start: 435,
-					end: 439
-				}
+					end: 439,
+				},
 			},
 			directives: [],
 			loc: {
 				start: 426,
-				end: 439
-			}
+				end: 439,
+			},
 		},
 		{
-			kind: "FieldDefinition",
+			kind: 'FieldDefinition',
 			name: {
-				kind: "Name",
-				value: "description",
+				kind: 'Name',
+				value: 'description',
 				loc: {
 					start: 442,
-					end: 453
-				}
+					end: 453,
+				},
 			},
 			arguments: [],
 			type: {
-				kind: "NamedType",
+				kind: 'NamedType',
 				name: {
-					kind: "Name",
-					value: "String",
+					kind: 'Name',
+					value: 'String',
 					loc: {
 						start: 455,
-						end: 461
-					}
+						end: 461,
+					},
 				},
 				loc: {
 					start: 455,
-					end: 461
-				}
+					end: 461,
+				},
 			},
 			directives: [],
 			loc: {
 				start: 442,
-				end: 461
-			}
+				end: 461,
+			},
 		},
 		{
-			kind: "FieldDefinition",
+			kind: 'FieldDefinition',
 			name: {
-				kind: "Name",
-				value: "id",
+				kind: 'Name',
+				value: 'id',
 				loc: {
 					start: 464,
-					end: 466
-				}
+					end: 466,
+				},
 			},
 			arguments: [],
 			type: {
-				kind: "NonNullType",
+				kind: 'NonNullType',
 				type: {
-					kind: "NamedType",
+					kind: 'NamedType',
 					name: {
-						kind: "Name",
-						value: "ID",
+						kind: 'Name',
+						value: 'ID',
 						loc: {
 							start: 468,
-							end: 470
-						}
+							end: 470,
+						},
 					},
 					loc: {
 						start: 468,
-						end: 470
-					}
+						end: 470,
+					},
 				},
 				loc: {
 					start: 468,
-					end: 471
-				}
+					end: 471,
+				},
 			},
 			directives: [],
 			loc: {
 				start: 464,
-				end: 471
-			}
+				end: 471,
+			},
 		},
 		{
-			kind: "FieldDefinition",
+			kind: 'FieldDefinition',
 			name: {
-				kind: "Name",
-				value: "logo",
+				kind: 'Name',
+				value: 'logo',
 				loc: {
 					start: 474,
-					end: 478
-				}
+					end: 478,
+				},
 			},
 			arguments: [],
 			type: {
-				kind: "NamedType",
+				kind: 'NamedType',
 				name: {
-					kind: "Name",
-					value: "String",
+					kind: 'Name',
+					value: 'String',
 					loc: {
 						start: 480,
-						end: 486
-					}
+						end: 486,
+					},
 				},
 				loc: {
 					start: 480,
-					end: 486
-				}
+					end: 486,
+				},
 			},
 			directives: [],
 			loc: {
 				start: 474,
-				end: 486
-			}
+				end: 486,
+			},
 		},
 		{
-			kind: "FieldDefinition",
+			kind: 'FieldDefinition',
 			name: {
-				kind: "Name",
-				value: "market",
+				kind: 'Name',
+				value: 'market',
 				loc: {
 					start: 489,
-					end: 495
-				}
+					end: 495,
+				},
 			},
 			arguments: [],
 			type: {
-				kind: "NonNullType",
+				kind: 'NonNullType',
 				type: {
-					kind: "NamedType",
+					kind: 'NamedType',
 					name: {
-						kind: "Name",
-						value: "Market",
+						kind: 'Name',
+						value: 'Market',
 						loc: {
 							start: 497,
-							end: 503
-						}
+							end: 503,
+						},
 					},
 					loc: {
 						start: 497,
-						end: 503
-					}
+						end: 503,
+					},
 				},
 				loc: {
 					start: 497,
-					end: 504
-				}
+					end: 504,
+				},
 			},
 			directives: [],
 			loc: {
 				start: 489,
-				end: 504
-			}
+				end: 504,
+			},
 		},
 		{
-			kind: "FieldDefinition",
+			kind: 'FieldDefinition',
 			name: {
-				kind: "Name",
-				value: "platform",
+				kind: 'Name',
+				value: 'platform',
 				loc: {
 					start: 507,
-					end: 515
-				}
+					end: 515,
+				},
 			},
 			arguments: [],
 			type: {
-				kind: "NonNullType",
+				kind: 'NonNullType',
 				type: {
-					kind: "NamedType",
+					kind: 'NamedType',
 					name: {
-						kind: "Name",
-						value: "Platform",
+						kind: 'Name',
+						value: 'Platform',
 						loc: {
 							start: 517,
-							end: 525
-						}
+							end: 525,
+						},
 					},
 					loc: {
 						start: 517,
-						end: 525
-					}
+						end: 525,
+					},
 				},
 				loc: {
 					start: 517,
-					end: 526
-				}
+					end: 526,
+				},
 			},
 			directives: [],
 			loc: {
 				start: 507,
-				end: 526
-			}
+				end: 526,
+			},
 		},
 		{
-			kind: "FieldDefinition",
+			kind: 'FieldDefinition',
 			name: {
-				kind: "Name",
-				value: "slug",
+				kind: 'Name',
+				value: 'slug',
 				loc: {
 					start: 529,
-					end: 533
-				}
+					end: 533,
+				},
 			},
 			arguments: [],
 			type: {
-				kind: "NonNullType",
+				kind: 'NonNullType',
 				type: {
-					kind: "NamedType",
+					kind: 'NamedType',
 					name: {
-						kind: "Name",
-						value: "String",
+						kind: 'Name',
+						value: 'String',
 						loc: {
 							start: 535,
-							end: 541
-						}
+							end: 541,
+						},
 					},
 					loc: {
 						start: 535,
-						end: 541
-					}
+						end: 541,
+					},
 				},
 				loc: {
 					start: 535,
-					end: 542
-				}
+					end: 542,
+				},
 			},
 			directives: [],
 			loc: {
 				start: 529,
-				end: 542
-			}
+				end: 542,
+			},
 		},
 		{
-			kind: "FieldDefinition",
+			kind: 'FieldDefinition',
 			name: {
-				kind: "Name",
-				value: "title",
+				kind: 'Name',
+				value: 'title',
 				loc: {
 					start: 545,
-					end: 550
-				}
+					end: 550,
+				},
 			},
 			arguments: [],
 			type: {
-				kind: "NonNullType",
+				kind: 'NonNullType',
 				type: {
-					kind: "NamedType",
+					kind: 'NamedType',
 					name: {
-						kind: "Name",
-						value: "String",
+						kind: 'Name',
+						value: 'String',
 						loc: {
 							start: 552,
-							end: 558
-						}
+							end: 558,
+						},
 					},
 					loc: {
 						start: 552,
-						end: 558
-					}
+						end: 558,
+					},
 				},
 				loc: {
 					start: 552,
-					end: 559
-				}
+					end: 559,
+				},
 			},
 			directives: [],
 			loc: {
 				start: 545,
-				end: 559
-			}
-		}
+				end: 559,
+			},
+		},
 	],
 	loc: {
 		start: 293,
-		end: 561
-	}
+		end: 561,
+	},
 };
 const inputMock = {
-	key: "InputObjectTypeDefinition",
+	key: 'InputObjectTypeDefinition',
 	value: [
 		{
-			kind: "InputObjectTypeDefinition",
+			kind: 'InputObjectTypeDefinition',
 			name: {
-				kind: "Name",
-				value: "UpdateCustomerSegmentsInput",
+				kind: 'Name',
+				value: 'UpdateCustomerSegmentsInput',
 				loc: {
 					start: 6,
-					end: 33
-				}
+					end: 33,
+				},
 			},
 			directives: [],
 			fields: [
 				{
-					kind: "InputValueDefinition",
+					kind: 'InputValueDefinition',
 					name: {
-						kind: "Name",
-						value: "clientMutationId",
+						kind: 'Name',
+						value: 'clientMutationId',
 						loc: {
 							start: 35,
-							end: 51
-						}
+							end: 51,
+						},
 					},
 					type: {
-						kind: "NamedType",
+						kind: 'NamedType',
 						name: {
-							kind: "Name",
-							value: "String",
+							kind: 'Name',
+							value: 'String',
 							loc: {
 								start: 53,
-								end: 59
-							}
+								end: 59,
+							},
 						},
 						loc: {
 							start: 53,
-							end: 59
-						}
+							end: 59,
+						},
 					},
 					directives: [],
 					loc: {
 						start: 35,
-						end: 59
-					}
+						end: 59,
+					},
 				},
 				{
-					kind: "InputValueDefinition",
+					kind: 'InputValueDefinition',
 					name: {
-						kind: "Name",
-						value: "b2bWelcome",
+						kind: 'Name',
+						value: 'b2bWelcome',
 						loc: {
 							start: 60,
-							end: 70
-						}
+							end: 70,
+						},
 					},
 					type: {
-						kind: "NamedType",
+						kind: 'NamedType',
 						name: {
-							kind: "Name",
-							value: "Boolean",
+							kind: 'Name',
+							value: 'Boolean',
 							loc: {
 								start: 72,
-								end: 79
-							}
+								end: 79,
+							},
 						},
 						loc: {
 							start: 72,
-							end: 79
-						}
+							end: 79,
+						},
 					},
 					directives: [],
 					loc: {
 						start: 60,
-						end: 79
-					}
-				}
+						end: 79,
+					},
+				},
 			],
 			loc: {
 				start: 0,
-				end: 80
-			}
-		}
-	]
-}
+				end: 80,
+			},
+		},
+	],
+};
 
 export const getDirectiveMapped = (totalDirectives: number = 1): any[] => {
-	const directives = []
+	const directives = [];
 	for (let i = 0; i < totalDirectives; ++i) directives.push(directiveMock);
 	return directives;
-}
+};
 
 export const getEnumMapped = (totalEnums: number = 1): any[] => {
-	const enums = []
+	const enums = [];
 	for (let i = 0; i < totalEnums; ++i) enums.push(enumMock);
 	return enums;
-}
+};
 
 export const getInputMapped = (totalInputs: number = 1): any[] => {
-	const inputs = []
+	const inputs = [];
 	for (let i = 0; i < totalInputs; ++i) inputs.push(inputMock);
 	return inputs;
-}
+};
 
 export class SchemaBreakdownMock {
 	private map: Map<string, any[]> = new Map();
