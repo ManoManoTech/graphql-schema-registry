@@ -1,5 +1,6 @@
-import { Chip, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import styled from 'styled-components';
+import { DeprecatedLabel } from '../../components/DeprecatedLabel';
 import { CommonLink } from '../../components/Link';
 import { colors } from '../../utils';
 
@@ -62,9 +63,7 @@ export const Argument = ({
 				)}
 				{isNullable && <span className={styles.symbol}>!</span>}
 			</span>
-			{isDeprecated && (
-				<Chip label="Deprecated" size="small" color="primary" />
-			)}
+			{isDeprecated && <DeprecatedLabel />}
 		</Container>
 	);
 };

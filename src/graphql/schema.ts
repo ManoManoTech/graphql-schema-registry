@@ -132,9 +132,16 @@ export default gql`
 		arguments: [FieldArgument!]
 	}
 
-	type OutputParam {
+	type InputParam {
 		key: String
-		isDeprecated: Boolean!
+		description: String
+		isNullable: Boolean!
+		isArray: Boolean!
+		isArrayNullable: Boolean!
+		parent: ParamParent!
+	}
+
+	type OutputParam {
 		description: String
 		isNullable: Boolean!
 		isArray: Boolean!
@@ -153,15 +160,23 @@ export default gql`
 		providedBy: ListTypeInstancesProviders!
 	}
 
-	type GetTypeInstanceOutput {
+	type TypeInstanceDetail {
+		name: String!
+		description: String!
+		type: String!
+		fields: [Field!]
+		usedBy: [ProvidedByParam!]!
+		implementations: [ProvidedByParam!]
+	}
+
+	type OperationInstanceDetail {
 		name: String!
 		description: String!
 		isDeprecated: Boolean!
 		type: String!
-		fields: [Field!]
-		inputParams: [Field!]
+		inputParams: [InputParam!]
 		outputParams: [OutputParam!]
-		usedBy: [ProvidedByParam!]!
-		implementations: [ProvidedByParam!]
 	}
+
+	union GetTypeInstanceOutput = TypeInstanceDetail | OperationInstanceDetail
 `;
