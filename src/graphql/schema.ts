@@ -110,14 +110,14 @@ export default gql`
 	type FieldArgumentParent {
 		id: Int
 		type: String
-		isNullable: Boolean
-		isArray: Boolean
-		isArrayNullable: Boolean
 	}
 
 	type FieldArgument {
 		name: String!
 		description: String
+		isNullable: Boolean
+		isArray: Boolean
+		isArrayNullable: Boolean
 		parent: FieldArgumentParent
 	}
 

@@ -41,9 +41,9 @@ export const InstanceDescriptionTable = ({
 				arguments: field.arguments?.map((argument) => ({
 					name: argument.name,
 					description: argument.description,
-					isArray: argument.parent.isArray,
-					isArrayNullable: argument.parent.isArrayNullable,
-					isNullable: argument.parent.isNullable,
+					isArray: argument.isArray,
+					isArrayNullable: argument.isArrayNullable,
+					isNullable: argument.isNullable,
 					type: {
 						id: argument.parent.id,
 						kind: argument.parent.type,

@@ -214,12 +214,12 @@ type Field = Param & {
 		{
 			name: string;
 			description?: string;
+			isNullable: boolean;
+			isArray: boolean;
+			isArrayNullable: boolean;
 			parent: {
 				id: number;
 				type: string;
-				isNullable: boolean;
-				isArray: boolean;
-				isArrayNullable: boolean;
 			};
 		}
 	];
@@ -268,12 +268,12 @@ export const TYPE_INSTANCE = gql`
 					arguments {
 						name
 						description
+						isNullable
+						isArray
+						isArrayNullable
 						parent {
 							id
 							type
-							isNullable
-							isArray
-							isArrayNullable
 						}
 					}
 				}
