@@ -88,7 +88,7 @@ export default gql`
 		name: String!
 	}
 
-	type ListTypeInstancesItem {
+	type TypeInstance {
 		id: Int!
 		name: String!
 		description: String
@@ -97,7 +97,7 @@ export default gql`
 	}
 
 	type ListTypeInstancesOutput {
-		items: [ListTypeInstancesItem!]!
+		items: [TypeInstance!]!
 		pagination: Pagination
 	}
 

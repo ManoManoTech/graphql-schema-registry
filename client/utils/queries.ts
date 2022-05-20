@@ -174,6 +174,7 @@ export const TYPE_SIDE_INSTANCES = gql`
 			items {
 				id
 				name
+				type
 			}
 		}
 	}
