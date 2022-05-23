@@ -22,12 +22,12 @@ jest.mock('../../../shared/useMinimumTime', () => ({
 	default: jest.fn().mockImplementation((loading) => loading),
 }));
 
-jest.mock('../InstanceSideListingHeader', () => ({
-	InstanceSideListingHeader: () => 'InstanceSideListingHeader',
+jest.mock('../InstancesSideListing.Header', () => ({
+	InstancesSideListingHeader: () => 'InstancesSideListingHeader',
 }));
 
-jest.mock('../InstanceSideListingBody', () => ({
-	InstanceSideListingBody: () => 'InstanceSideListingBody',
+jest.mock('../InstancesSideListing.Body', () => ({
+	InstancesSideListingBody: () => 'InstancesSideListingBody',
 }));
 
 describe('InstancesSideListing tests', () => {
