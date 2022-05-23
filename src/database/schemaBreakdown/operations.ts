@@ -11,7 +11,6 @@ import {
 } from '../../model/repository';
 import knex from 'knex';
 
-
 const table = 'type_def_operations';
 
 interface OperationService extends TypeInstanceRepository {
