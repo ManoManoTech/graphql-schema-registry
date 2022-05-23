@@ -2,7 +2,7 @@ import {
 	getTypeDefDataMock,
 	SchemaBreakdownMock,
 } from './mocks/breakDownStrategy.mock';
-import {ScalarStrategy} from "../../../../src/controller/schemaBreakdown/scalar";
+import { ScalarStrategy } from '../../../../src/controller/schemaBreakdown/scalar';
 
 describe('Breaking down enums from schema', () => {
 	const strategy = new ScalarStrategy();
@@ -24,10 +24,7 @@ describe('Breaking down enums from schema', () => {
 	});
 
 	test('Mixed scalars on same schema', () => {
-		const mock = new SchemaBreakdownMock()
-			.addScalars()
-			.addEnums()
-			.build();
+		const mock = new SchemaBreakdownMock().addScalars().addEnums().build();
 		const data = getTypeDefDataMock(mock);
 
 		const entities = strategy.getEntities(data);

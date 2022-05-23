@@ -2,7 +2,7 @@ import {
 	getTypeDefDataMock,
 	SchemaBreakdownMock,
 } from './mocks/breakDownStrategy.mock';
-import {UnionStrategy} from "../../../../src/controller/schemaBreakdown/union";
+import { UnionStrategy } from '../../../../src/controller/schemaBreakdown/union';
 
 describe('Breaking down enums from schema', () => {
 	const strategy = new UnionStrategy();
@@ -24,10 +24,7 @@ describe('Breaking down enums from schema', () => {
 	});
 
 	test('Mixed unions on same schema', () => {
-		const mock = new SchemaBreakdownMock()
-			.addUnions()
-			.addEnums()
-			.build();
+		const mock = new SchemaBreakdownMock().addUnions().addEnums().build();
 		const data = getTypeDefDataMock(mock);
 
 		const entities = strategy.getEntities(data);

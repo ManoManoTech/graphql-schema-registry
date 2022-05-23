@@ -1542,19 +1542,13 @@ export class SchemaBreakdownMock {
 	}
 
 	addScalars(totalInterfaces: number = 1): SchemaBreakdownMock {
-		const scalars = getTypeMapped(
-			totalInterfaces,
-			DocumentNodeType.SCALAR
-		);
+		const scalars = getTypeMapped(totalInterfaces, DocumentNodeType.SCALAR);
 		this.map.set(DocumentNodeType.SCALAR, scalars);
 		return this;
 	}
 
 	addUnions(totalInterfaces: number = 1): SchemaBreakdownMock {
-		const unions = getTypeMapped(
-			totalInterfaces,
-			DocumentNodeType.UNION
-		);
+		const unions = getTypeMapped(totalInterfaces, DocumentNodeType.UNION);
 		this.map.set(DocumentNodeType.UNION, unions);
 		return this;
 	}

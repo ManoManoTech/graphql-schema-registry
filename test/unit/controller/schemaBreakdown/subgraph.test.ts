@@ -1,6 +1,9 @@
-import {SubgraphStrategy} from "../../../../src/controller/schemaBreakdown/subgraph";
-import {getTypeDefDataMock, SchemaBreakdownMock} from "./mocks/breakDownStrategy.mock";
-import {ObjectStrategy} from "../../../../src/controller/schemaBreakdown/object";
+import { SubgraphStrategy } from '../../../../src/controller/schemaBreakdown/subgraph';
+import {
+	getTypeDefDataMock,
+	SchemaBreakdownMock,
+} from './mocks/breakDownStrategy.mock';
+import { ObjectStrategy } from '../../../../src/controller/schemaBreakdown/object';
 
 describe('Breaking down subgraphs', () => {
 	const strategy = new SubgraphStrategy();
@@ -12,4 +15,4 @@ describe('Breaking down subgraphs', () => {
 		const response = strategy.getEntities(data);
 		expect(response).toEqual([]);
 	});
-})
+});
