@@ -10,7 +10,6 @@ import PersistedQueriesModel from '../database/persisted_queries';
 import listTypeInstances from './resolvers/listTypeInstances';
 import listTypes from './resolvers/listTypes';
 import getTypeInstance from './resolvers/getTypeInstance';
-import TypeInstanceDetailResponse from './resolvers/union/typeInstanceDetailResponse';
 
 const dateTime = new Intl.DateTimeFormat('en-GB', {
 	weekday: 'long',
@@ -19,8 +18,22 @@ const dateTime = new Intl.DateTimeFormat('en-GB', {
 	day: 'numeric',
 });
 
+export const commonResolvers = {
+	TypeInstanceDetailResponse: {
+		__resolveType(obj) {
+			if (obj.inputParams || obj.outputParams) {
+				return 'OperationInstanceDetail';
+			}
+			if (obj.fields) {
+				return 'TypeInstanceDetail';
+			}
+			return null;
+		},
+	},
+};
+
 export default {
-	TypeInstanceDetailResponse,
+	...commonResolvers,
 	Query: {
 		services: async (parent, { limit, offset }) =>
 			servicesModel.getServices(connection, limit, offset),
