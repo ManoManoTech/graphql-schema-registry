@@ -21,7 +21,11 @@ export default gql`
 		persistedQueriesCount: Int!
 
 		listTypes: ListedTypes!
-		listTypeInstances(type: String!, limit: Int!, offset: Int!): ListedTypeInstances!
+		listTypeInstances(
+			type: String!
+			limit: Int!
+			offset: Int!
+		): ListedTypeInstances!
 		getTypeInstance(type: String!, id: Int!): TypeInstanceDetailResponse!
 	}
 
@@ -133,12 +137,12 @@ export default gql`
 	}
 
 	type Argument {
-        name: String!
-        description: String
+		name: String!
+		description: String
 		isNullable: Boolean!
 		isArray: Boolean!
 		isArrayNullable: Boolean!
-        parent: Parent!
+		parent: Parent!
 	}
 
 	type FieldDetails {
@@ -193,27 +197,29 @@ export default gql`
 		description: String
 		parent: Parent!
 		key: String!
-  		providedBy: Service!
+		providedBy: Service!
 	}
 
 	type TypeInstanceDetail {
 		id: Int!
-        name: String!
-        description: String
-        type: String!
+		name: String!
+		description: String
+		type: String!
 		fields: [Field!]
-    	usedBy: [ParamProvidedBy!]
-    	implementations: [ParamProvidedBy!]
+		usedBy: [ParamProvidedBy!]
+		implementations: [ParamProvidedBy!]
 	}
 
 	type OperationInstanceDetail {
 		id: Int!
-        name: String!
-        description: String
-        type: String!
-    	inputParams: [InputParam!]
-    	outputParams: [OutputParam!]
+		name: String!
+		description: String
+		type: String!
+		inputParams: [InputParam!]
+		outputParams: [OutputParam!]
 	}
 
-	union TypeInstanceDetailResponse = TypeInstanceDetail | OperationInstanceDetail
+	union TypeInstanceDetailResponse =
+		  TypeInstanceDetail
+		| OperationInstanceDetail
 `;

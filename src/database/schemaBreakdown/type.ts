@@ -345,7 +345,7 @@ export class TypeTransactionalRepository implements TypeService {
 
 	private mapFields(rows: any[], alias: TableAliases): Field[] {
 		const fieldMap = new Map<number, Field>();
-		rows.forEach(row => {
+		rows.forEach((row) => {
 			if (
 				row[alias.field].id !== null &&
 				row[alias.fieldType].id !== null
@@ -373,7 +373,7 @@ export class TypeTransactionalRepository implements TypeService {
 				const argument: Argument = {
 					...camelizeKeys(row[alias.argument]),
 					parent: camelizeKeys(row[alias.argumentType]),
-				}
+				};
 				acc.push(argument);
 			}
 			return acc;

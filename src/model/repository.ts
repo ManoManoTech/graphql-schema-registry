@@ -43,12 +43,12 @@ export type InputParam = Nullable & {
 	description?: string;
 	parent: Parent;
 	key: string;
-}
+};
 
 export type OutputParam = Nullable & {
 	description?: string;
 	parent: Parent;
-}
+};
 
 export type ParamProvidedBy = {
 	description?: string;
@@ -77,7 +77,13 @@ export interface OperationInstanceDetail {
 }
 
 export interface TypeInstanceRepository {
-	listByType(type: string, limit: number, offset: number): Promise<TypeInstance[]>
-	countByType(type: string): Promise<number>
-	getDetails(id: number): Promise<TypeInstanceDetail | OperationInstanceDetail>
+	listByType(
+		type: string,
+		limit: number,
+		offset: number
+	): Promise<TypeInstance[]>;
+	countByType(type: string): Promise<number>;
+	getDetails(
+		id: number
+	): Promise<TypeInstanceDetail | OperationInstanceDetail>;
 }

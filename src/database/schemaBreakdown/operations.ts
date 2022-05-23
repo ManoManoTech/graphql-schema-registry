@@ -33,9 +33,10 @@ export type OperationCount = {
 const TABLE_NAME = 'type_def_operations';
 const TABLE_COLUMNS = ['name', 'description', 'type', 'service_id'];
 
-export class OperationTransactionalRepository
-	extends BreakDownRepository<OperationPayload, Operation>
-{
+export class OperationTransactionalRepository extends BreakDownRepository<
+	OperationPayload,
+	Operation
+> {
 	private static instance: OperationTransactionalRepository;
 
 	constructor() {
@@ -132,7 +133,9 @@ export class OperationTransactionalRepository
 		const [outputParams, inputParams]: [InputParam[], OutputParam[]] =
 			inputParamsResult.reduce(
 				([outputs, inputs], current) => {
-					const parameter = camelizeKeys(current[parametersTableName]);
+					const parameter = camelizeKeys(
+						current[parametersTableName]
+					);
 					const hydratedParameter = {
 						...parameter,
 						key: parameter.name,
