@@ -23,7 +23,7 @@ export default gql`
 			limit: Int
 			offset: Int
 		): ListTypeInstancesOutput!
-		getTypeInstance(type: String!, id: Int!): GetTypeInstanceOutput!
+		getTypeInstance(type: String!, id: Int!): TypeInstanceDetailResponse!
 	}
 
 	type Mutation {
@@ -178,5 +178,7 @@ export default gql`
 		outputParams: [OutputParam!]
 	}
 
-	union GetTypeInstanceOutput = TypeInstanceDetail | OperationInstanceDetail
+	union TypeInstanceDetailResponse =
+		  TypeInstanceDetail
+		| OperationInstanceDetail
 `;
