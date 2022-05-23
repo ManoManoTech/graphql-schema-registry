@@ -27,17 +27,12 @@ export type OperationCount = {
 };
 
 const TABLE_NAME = 'type_def_operations';
-const TABLE_COLUMNS = [
-	'name',
-	'description',
-	'type',
-	'service_id'
-];
+const TABLE_COLUMNS = ['name', 'description', 'type', 'service_id'];
 
-export class OperationTransactionalRepository extends BreakDownRepository<
-	OperationPayload,
-	Operation
-> implements OperationService {
+export class OperationTransactionalRepository
+	extends BreakDownRepository<OperationPayload, Operation>
+	implements OperationService
+{
 	private static instance: OperationTransactionalRepository;
 
 	constructor() {
@@ -46,7 +41,8 @@ export class OperationTransactionalRepository extends BreakDownRepository<
 
 	static getInstance(): OperationTransactionalRepository {
 		if (!OperationTransactionalRepository.instance) {
-			OperationTransactionalRepository.instance = new OperationTransactionalRepository();
+			OperationTransactionalRepository.instance =
+				new OperationTransactionalRepository();
 		}
 
 		return OperationTransactionalRepository.instance;

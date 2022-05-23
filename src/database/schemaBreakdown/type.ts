@@ -13,11 +13,7 @@ import { camelizeKeys } from 'humps';
 import { Service } from '../../model/service';
 
 const TABLE_NAME = 'type_def_types';
-const TABLE_COLUMNS = [
-	'name',
-	'description',
-	'type'
-];
+const TABLE_COLUMNS = ['name', 'description', 'type'];
 
 interface TypeService extends TypeInstanceRepository {
 	getTypesByNames(trx: Transaction, typeNames: string[]): Promise<Type[]>;
@@ -42,33 +38,34 @@ export class TypeTransactionalRepository
 
 	static getInstance(): TypeTransactionalRepository {
 		if (!TypeTransactionalRepository.instance) {
-			TypeTransactionalRepository.instance = new TypeTransactionalRepository();
+			TypeTransactionalRepository.instance =
+				new TypeTransactionalRepository();
 		}
 
 		return TypeTransactionalRepository.instance;
 	}
 
 	async getTypeByName(trx: Transaction, name: string) {
-		return trx(TABLE_NAME)
-			.select()
-			.where('name', name);
+		return trx(TABLE_NAME).select().where('name', name);
 	}
 
 	async getTypesByNames(trx: Transaction, data: string[]) {
-		return super.get(trx, data, 'name')
+		return super.get(trx, data, 'name');
 	}
 
-	async insertIgnoreTypes(trx: Transaction, data: TypePayload[]): Promise<void> {
-		return super.insert(trx, data)
+	async insertIgnoreTypes(
+		trx: Transaction,
+		data: TypePayload[]
+	): Promise<void> {
+		return super.insert(trx, data);
 	}
 
 	async removeTypes(trx: Transaction, data: string[]) {
-		return super.remove(trx, data, 'name')
+		return super.remove(trx, data, 'name');
 	}
 
 	async removeTypesByService(trx: Transaction) {
-		return trx
-			.raw(`
+		return trx.raw(`
 				DELETE t
 				FROM type_def_types t
 				LEFT JOIN type_def_subgraphs tds on t.id = tds.type_id

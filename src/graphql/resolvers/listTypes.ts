@@ -1,8 +1,10 @@
 import {
-	TypeCount, TypeTransactionalRepository,
+	TypeCount,
+	TypeTransactionalRepository,
 } from '../../database/schemaBreakdown/type';
 import {
-	OperationCount, OperationTransactionalRepository,
+	OperationCount,
+	OperationTransactionalRepository,
 } from '../../database/schemaBreakdown/operations';
 
 interface ListedTypes {
@@ -12,7 +14,9 @@ interface ListedTypes {
 
 export default async function listTypes(): Promise<ListedTypes> {
 	return {
-		operations: await OperationTransactionalRepository.getInstance().countOperationsByType(),
-		entities: await TypeTransactionalRepository.getInstance().countTypesByType(),
+		operations:
+			await OperationTransactionalRepository.getInstance().countOperationsByType(),
+		entities:
+			await TypeTransactionalRepository.getInstance().countTypesByType(),
 	};
 }
