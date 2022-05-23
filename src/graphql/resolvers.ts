@@ -20,7 +20,7 @@ const dateTime = new Intl.DateTimeFormat('en-GB', {
 });
 
 export const commonResolvers = {
-	GetTypeInstanceOutput: {
+	TypeInstanceDetailResponse: {
 		__resolveType(obj) {
 			if (obj.inputParams || obj.outputParams) {
 				return 'OperationInstanceDetail';
