@@ -7,8 +7,8 @@ import {
 	TypeSideInstancesVars,
 	TYPE_SIDE_INSTANCES,
 } from '../../utils/queries';
-import { InstanceSideListingBody } from './InstanceSideListingBody';
-import { InstanceSideListingHeader } from './InstanceSideListingHeader';
+import { InstancesSideListingBody } from './InstancesSideListing.Body';
+import { InstancesSideListingHeader } from './InstancesSideListing.Header';
 import { InstancesSideListingSkeleton } from './InstancesSideListing.Skeleton';
 
 const InstancesSideListingContainer = styled(ListContainer)`
@@ -53,8 +53,8 @@ export const InstancesSideListingStep2 = ({
 
 	return (
 		<InstancesSideListingContainer as="aside">
-			<InstanceSideListingHeader typeName={typeName} counting={count} />
-			<InstanceSideListingBody
+			<InstancesSideListingHeader typeName={typeName} counting={count} />
+			<InstancesSideListingBody
 				items={items}
 				typeName={typeName}
 				instanceId={instanceId}
