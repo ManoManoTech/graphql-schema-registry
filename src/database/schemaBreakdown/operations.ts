@@ -9,6 +9,8 @@ import {
 	TypeInstanceDetail,
 	TypeInstanceRepository,
 } from '../../model/repository';
+import knex from 'knex';
+
 
 const table = 'type_def_operations';
 
@@ -99,5 +101,9 @@ export class OperationTransactionalRepository
 
 	getDetails(id: number): Promise<TypeInstanceDetail> {
 		throw new Error('Method not implemented.');
+	}
+
+	async getAll() {
+		return connection(TABLE_NAME).select();
 	}
 }
