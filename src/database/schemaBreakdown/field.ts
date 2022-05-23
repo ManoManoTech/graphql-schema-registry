@@ -18,6 +18,7 @@ export class FieldTransactionRepository extends BreakDownRepository<
 	FieldPayload,
 	Field
 > {
+	static tableName = 'type_def_fields';
 	private static instance: FieldTransactionRepository;
 
 	constructor() {

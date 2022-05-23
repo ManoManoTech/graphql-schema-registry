@@ -10,6 +10,7 @@ import PersistedQueriesModel from '../database/persisted_queries';
 import listTypeInstances from './resolvers/listTypeInstances';
 import listTypes from './resolvers/listTypes';
 import getTypeInstance from './resolvers/getTypeInstance';
+import TypeInstanceDetailResponse from './resolvers/union/typeInstanceDetailResponse';
 
 const dateTime = new Intl.DateTimeFormat('en-GB', {
 	weekday: 'long',
@@ -33,7 +34,7 @@ export const commonResolvers = {
 };
 
 export default {
-	...commonResolvers,
+	TypeInstanceDetailResponse,
 	Query: {
 		services: async (parent, { limit, offset }) =>
 			servicesModel.getServices(connection, limit, offset),

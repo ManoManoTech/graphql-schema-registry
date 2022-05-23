@@ -25,13 +25,13 @@ type ArgumentParent = Parent &
 		type: string;
 	};
 
-interface Argument {
+export interface Argument {
 	name: string;
 	description?: string;
 	parent: ArgumentParent;
 }
 
-type Field = Nullable & {
+export type Field = Nullable & {
 	description?: string;
 	parent: Parent;
 	key: string;
@@ -39,20 +39,18 @@ type Field = Nullable & {
 	arguments?: Argument[];
 };
 
-type InputParam = Nullable & {
+export type InputParam = Nullable & {
 	description?: string;
 	parent: Parent;
 	key: string;
-	isDeprecated: boolean;
-};
+}
 
-type OutputParam = Nullable & {
+export type OutputParam = Nullable & {
 	description?: string;
 	parent: Parent;
-	isDeprecated: boolean;
-};
+}
 
-type ParamProvidedBy = Nullable & {
+export type ParamProvidedBy = {
 	description?: string;
 	parent: Parent;
 	key: string;
@@ -65,18 +63,21 @@ export interface TypeInstanceDetail {
 	description?: string;
 	type: string;
 	fields: Field[];
-	inputParams: InputParam[];
-	outputParams: OutputParam[];
 	usedBy: ParamProvidedBy[];
 	implementations: ParamProvidedBy[];
 }
 
+export interface OperationInstanceDetail {
+	id: number;
+	name: string;
+	description?: string;
+	type: string;
+	inputParams: InputParam[];
+	outputParams: OutputParam[];
+}
+
 export interface TypeInstanceRepository {
-	listByType(
-		type: string,
-		limit: number,
-		offset: number
-	): Promise<TypeInstance[]>;
-	countByType(type: string): Promise<number>;
-	getDetails(id: number): Promise<TypeInstanceDetail>;
+	listByType(type: string, limit: number, offset: number): Promise<TypeInstance[]>
+	countByType(type: string): Promise<number>
+	getDetails(id: number): Promise<TypeInstanceDetail | OperationInstanceDetail>
 }

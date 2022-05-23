@@ -1,19 +1,22 @@
 import Knex, { Transaction } from 'knex';
 import { Operation, OperationPayload } from '../../model/operation';
 import { BreakDownRepository } from './breakdown';
+import {
+	InputParam,
+	OperationInstanceDetail,
+	OutputParam,
+	TypeInstance,
+	TypeInstanceRepository,
+} from '../../model/repository';
 import { camelizeKeys } from 'humps';
 import { connection } from '../index';
 import { OperationType } from '../../model/enums';
-import {
-	TypeInstance,
-	TypeInstanceDetail,
-	TypeInstanceRepository,
-} from '../../model/repository';
-import knex from 'knex';
 
-const table = 'type_def_operations';
+export const table = 'type_def_operations';
+const parametersTableName = 'type_def_operation_parameters';
 
 interface OperationService extends TypeInstanceRepository {
+	insertOperation(trx: Knex, data: OperationPayload): Promise<Operation>;
 	countOperationsByType(): Promise<OperationCount[]>;
 	listByType(
 		type: string,
@@ -32,7 +35,6 @@ const TABLE_COLUMNS = ['name', 'description', 'type', 'service_id'];
 
 export class OperationTransactionalRepository
 	extends BreakDownRepository<OperationPayload, Operation>
-	implements OperationService
 {
 	private static instance: OperationTransactionalRepository;
 
@@ -98,8 +100,51 @@ export class OperationTransactionalRepository
 		return totalItems as number;
 	}
 
-	getDetails(id: number): Promise<TypeInstanceDetail> {
-		throw new Error('Method not implemented.');
+	async getDetails(id: number): Promise<OperationInstanceDetail> {
+		const parameterTypeAlias = 'parameterType';
+		const result = await connection(table).select().where('id', id).first();
+
+		const inputParamsResult = await connection(parametersTableName)
+			.select()
+			.where('operation_id', id)
+			.join(
+				`type_def_types as ${parameterTypeAlias}`,
+				`${parameterTypeAlias}.id`,
+				'=',
+				`${parametersTableName}.type_id`
+			)
+			.options({ nestTables: true });
+
+		const details: OperationInstanceDetail = {
+			...camelizeKeys(result),
+			...this.mapToInputOutputParams(
+				inputParamsResult,
+				parameterTypeAlias
+			),
+		};
+		return details;
+	}
+
+	private mapToInputOutputParams(
+		inputParamsResult: any[],
+		parameterTypeAlias: string
+	) {
+		const [outputParams, inputParams]: [InputParam[], OutputParam[]] =
+			inputParamsResult.reduce(
+				([outputs, inputs], current) => {
+					const parameter = camelizeKeys(current[parametersTableName]);
+					const hydratedParameter = {
+						...parameter,
+						key: parameter.name,
+						parent: camelizeKeys(current[parameterTypeAlias]),
+					};
+					return parameter.isOutput
+						? [[...outputs, hydratedParameter], inputs]
+						: [outputs, [...inputs, hydratedParameter]];
+				},
+				[[], []]
+			);
+		return { outputParams, inputParams };
 	}
 
 	async getAll() {

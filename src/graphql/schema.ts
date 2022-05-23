@@ -21,12 +21,8 @@ export default gql`
 		persistedQueriesCount: Int!
 
 		listTypes: ListedTypes!
-		listTypeInstances(
-			type: String!
-			limit: Int!
-			offset: Int!
-		): ListedTypeInstances!
-		getTypeInstance(type: String!, id: Int!): FullTypeInstance!
+		listTypeInstances(type: String!, limit: Int!, offset: Int!): ListedTypeInstances!
+		getTypeInstance(type: String!, id: Int!): TypeInstanceDetailResponse!
 	}
 
 	type Mutation {
@@ -136,19 +132,13 @@ export default gql`
 		type: String!
 	}
 
-	type ArgumentParent {
-		id: Int!
-		name: String!
-		type: String!
+	type Argument {
+        name: String!
+        description: String
 		isNullable: Boolean!
 		isArray: Boolean!
 		isArrayNullable: Boolean!
-	}
-
-	type Argument {
-		name: String!
-		description: String
-		parent: ArgumentParent!
+        parent: Parent!
 	}
 
 	type FieldDetails {
@@ -189,7 +179,6 @@ export default gql`
 		isArray: Boolean!
 		isArrayNullable: Boolean!
 		key: String!
-		isDeprecated: Boolean!
 	}
 
 	type OutputParam {
@@ -198,28 +187,33 @@ export default gql`
 		isNullable: Boolean!
 		isArray: Boolean!
 		isArrayNullable: Boolean!
-		isDeprecated: Boolean!
 	}
 
 	type ParamProvidedBy {
 		description: String
 		parent: Parent!
-		isNullable: Boolean!
-		isArray: Boolean!
-		isArrayNullable: Boolean!
 		key: String!
-		providedBy: [Service!]!
+  		providedBy: Service!
 	}
 
-	type FullTypeInstance {
+	type TypeInstanceDetail {
 		id: Int!
-		name: String!
-		description: String
-		type: String!
+        name: String!
+        description: String
+        type: String!
 		fields: [Field!]
-		inputParams: [InputParam!]
-		outputParams: [OutputParam!]
-		usedBy: [ParamProvidedBy!]
-		implementations: [ParamProvidedBy!]
+    	usedBy: [ParamProvidedBy!]
+    	implementations: [ParamProvidedBy!]
 	}
+
+	type OperationInstanceDetail {
+		id: Int!
+        name: String!
+        description: String
+        type: String!
+    	inputParams: [InputParam!]
+    	outputParams: [OutputParam!]
+	}
+
+	union TypeInstanceDetailResponse = TypeInstanceDetail | OperationInstanceDetail
 `;
