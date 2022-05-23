@@ -1,5 +1,8 @@
 import { ITypeDefData } from '../../../../../src/controller/schemaBreakdown/strategy';
-import {DocumentNodeType, OperationType} from '../../../../../src/model/enums';
+import {
+	DocumentNodeType,
+	OperationType,
+} from '../../../../../src/model/enums';
 
 export const typeDefDataMock: Partial<ITypeDefData> = {
 	dbMap: new Map<string, number>(),
@@ -1291,190 +1294,190 @@ const inputMock = {
 	],
 };
 const interfaceMock = {
-	key: "InterfaceTypeDefinition",
+	key: 'InterfaceTypeDefinition',
 	value: [
 		{
-			kind: "InterfaceTypeDefinition",
+			kind: 'InterfaceTypeDefinition',
 			name: {
-				kind: "Name",
-				value: "Node",
+				kind: 'Name',
+				value: 'Node',
 				loc: {
 					start: 37,
-					end: 41
-				}
+					end: 41,
+				},
 			},
 			interfaces: [],
 			directives: [],
 			fields: [
 				{
-					kind: "FieldDefinition",
+					kind: 'FieldDefinition',
 					name: {
-						kind: "Name",
-						value: "id",
+						kind: 'Name',
+						value: 'id',
 						loc: {
 							start: 44,
-							end: 46
-						}
+							end: 46,
+						},
 					},
 					arguments: [],
 					type: {
-						kind: "NonNullType",
+						kind: 'NonNullType',
 						type: {
-							kind: "NamedType",
+							kind: 'NamedType',
 							name: {
-								kind: "Name",
-								value: "ID",
+								kind: 'Name',
+								value: 'ID',
 								loc: {
 									start: 48,
-									end: 50
-								}
+									end: 50,
+								},
 							},
 							loc: {
 								start: 48,
-								end: 50
-							}
+								end: 50,
+							},
 						},
 						loc: {
 							start: 48,
-							end: 51
-						}
+							end: 51,
+						},
 					},
 					directives: [],
 					loc: {
 						start: 44,
-						end: 51
-					}
+						end: 51,
+					},
 				},
 				{
-					kind: "FieldDefinition",
+					kind: 'FieldDefinition',
 					name: {
-						kind: "Name",
-						value: "createdAt",
+						kind: 'Name',
+						value: 'createdAt',
 						loc: {
 							start: 52,
-							end: 61
-						}
+							end: 61,
+						},
 					},
 					arguments: [],
 					type: {
-						kind: "NonNullType",
+						kind: 'NonNullType',
 						type: {
-							kind: "NamedType",
+							kind: 'NamedType',
 							name: {
-								kind: "Name",
-								value: "String",
+								kind: 'Name',
+								value: 'String',
 								loc: {
 									start: 63,
-									end: 69
-								}
+									end: 69,
+								},
 							},
 							loc: {
 								start: 63,
-								end: 69
-							}
+								end: 69,
+							},
 						},
 						loc: {
 							start: 63,
-							end: 70
-						}
+							end: 70,
+						},
 					},
 					directives: [],
 					loc: {
 						start: 52,
-						end: 70
-					}
+						end: 70,
+					},
 				},
 				{
-					kind: "FieldDefinition",
+					kind: 'FieldDefinition',
 					name: {
-						kind: "Name",
-						value: "updatedAt",
+						kind: 'Name',
+						value: 'updatedAt',
 						loc: {
 							start: 71,
-							end: 80
-						}
+							end: 80,
+						},
 					},
 					arguments: [],
 					type: {
-						kind: "NamedType",
+						kind: 'NamedType',
 						name: {
-							kind: "Name",
-							value: "String",
+							kind: 'Name',
+							value: 'String',
 							loc: {
 								start: 82,
-								end: 88
-							}
+								end: 88,
+							},
 						},
 						loc: {
 							start: 82,
-							end: 88
-						}
+							end: 88,
+						},
 					},
 					directives: [],
 					loc: {
 						start: 71,
-						end: 88
-					}
-				}
+						end: 88,
+					},
+				},
 			],
 			loc: {
 				start: 27,
-				end: 90
-			}
-		}
-	]
+				end: 90,
+			},
+		},
+	],
 };
 const mutationMock = {
-	kind: "ObjectTypeDefinition",
+	kind: 'ObjectTypeDefinition',
 	name: {
-		kind: "Name",
-		value: "Mutation",
+		kind: 'Name',
+		value: 'Mutation',
 		loc: {
 			start: 33,
-			end: 41
-		}
+			end: 41,
+		},
 	},
 	interfaces: [],
 	directives: [],
 	fields: [
 		{
-			kind: "FieldDefinition",
+			kind: 'FieldDefinition',
 			name: {
-				kind: "Name",
-				value: "fake",
+				kind: 'Name',
+				value: 'fake',
 				loc: {
 					start: 44,
-					end: 48
-				}
+					end: 48,
+				},
 			},
 			arguments: [],
 			type: {
-				kind: "NamedType",
+				kind: 'NamedType',
 				name: {
-					kind: "Name",
-					value: "Float",
+					kind: 'Name',
+					value: 'Float',
 					loc: {
 						start: 50,
-						end: 55
-					}
+						end: 55,
+					},
 				},
 				loc: {
 					start: 50,
-					end: 55
-				}
+					end: 55,
+				},
 			},
 			directives: [],
 			loc: {
 				start: 44,
-				end: 55
-			}
-		}
+				end: 55,
+			},
+		},
 	],
 	loc: {
 		start: 28,
-		end: 57
-	}
-}
+		end: 57,
+	},
+};
 
 const mocks = new Map();
 mocks.set(DocumentNodeType.DIRECTIVE, directiveMock);
@@ -1488,16 +1491,19 @@ mocks.set(DocumentNodeType.INTERFACE, interfaceMock);
 mocks.set(OperationType.MUTATION, mutationMock);
 
 export const getTypeMapped = (total: number = 1, type: any): any[] => {
-	const results = []
+	const results = [];
 	for (let i = 0; i < total; ++i) results.push(mocks.get(type));
 	return results;
-}
+};
 
 export class SchemaBreakdownMock {
 	private map: Map<string, any[]> = new Map();
 
 	addDirectives(totalDirectives: number = 1): SchemaBreakdownMock {
-		const directives = getTypeMapped(totalDirectives, DocumentNodeType.DIRECTIVE);
+		const directives = getTypeMapped(
+			totalDirectives,
+			DocumentNodeType.DIRECTIVE
+		);
 		this.map.set(DocumentNodeType.DIRECTIVE, directives);
 		return this;
 	}
@@ -1515,7 +1521,10 @@ export class SchemaBreakdownMock {
 	}
 
 	addInterfaces(totalInterfaces: number = 1): SchemaBreakdownMock {
-		const interfaces = getTypeMapped(totalInterfaces, DocumentNodeType.INTERFACE);
+		const interfaces = getTypeMapped(
+			totalInterfaces,
+			DocumentNodeType.INTERFACE
+		);
 		this.map.set(DocumentNodeType.INTERFACE, interfaces);
 		return this;
 	}
@@ -1524,7 +1533,11 @@ export class SchemaBreakdownMock {
 		const objects = getTypeMapped(totalObjects, DocumentNodeType.OBJECT);
 		const queries = getTypeMapped(totalObjects, OperationType.QUERY);
 		const mutations = getTypeMapped(totalObjects, OperationType.MUTATION);
-		this.map.set(DocumentNodeType.OBJECT, [...objects, ...queries, ...mutations]);
+		this.map.set(DocumentNodeType.OBJECT, [
+			...objects,
+			...queries,
+			...mutations,
+		]);
 		return this;
 	}
 

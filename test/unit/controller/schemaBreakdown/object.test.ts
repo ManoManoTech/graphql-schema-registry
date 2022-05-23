@@ -2,7 +2,7 @@ import {
 	getTypeDefDataMock,
 	SchemaBreakdownMock,
 } from './mocks/breakDownStrategy.mock';
-import {ObjectStrategy} from "../../../../src/controller/schemaBreakdown/object";
+import { ObjectStrategy } from '../../../../src/controller/schemaBreakdown/object';
 
 describe('Breaking down enums from schema', () => {
 	const strategy = new ObjectStrategy();

@@ -2,7 +2,7 @@ import {
 	getTypeDefDataMock,
 	SchemaBreakdownMock,
 } from './mocks/breakDownStrategy.mock';
-import {InterfaceStrategy} from "../../../../src/controller/schemaBreakdown/interface";
+import { InterfaceStrategy } from '../../../../src/controller/schemaBreakdown/interface';
 
 describe('Breaking down enums from schema', () => {
 	const strategy = new InterfaceStrategy();
@@ -24,7 +24,10 @@ describe('Breaking down enums from schema', () => {
 	});
 
 	test('Mixed interfaces on same schema', () => {
-		const mock = new SchemaBreakdownMock().addInterfaces().addEnums().build();
+		const mock = new SchemaBreakdownMock()
+			.addInterfaces()
+			.addEnums()
+			.build();
 		const data = getTypeDefDataMock(mock);
 
 		const entities = strategy.getEntities(data);
