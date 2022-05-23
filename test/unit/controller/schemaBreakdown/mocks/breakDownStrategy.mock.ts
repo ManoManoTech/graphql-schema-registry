@@ -1,5 +1,5 @@
 import { ITypeDefData } from '../../../../../src/controller/schemaBreakdown/strategy';
-import { DocumentNodeType } from '../../../../../src/model/enums';
+import {DocumentNodeType, OperationType} from '../../../../../src/model/enums';
 
 export const typeDefDataMock: Partial<ITypeDefData> = {
 	dbMap: new Map<string, number>(),
@@ -1290,43 +1290,241 @@ const inputMock = {
 		},
 	],
 };
-
-export const getDirectiveMapped = (totalDirectives: number = 1): any[] => {
-	const directives = [];
-	for (let i = 0; i < totalDirectives; ++i) directives.push(directiveMock);
-	return directives;
+const interfaceMock = {
+	key: "InterfaceTypeDefinition",
+	value: [
+		{
+			kind: "InterfaceTypeDefinition",
+			name: {
+				kind: "Name",
+				value: "Node",
+				loc: {
+					start: 37,
+					end: 41
+				}
+			},
+			interfaces: [],
+			directives: [],
+			fields: [
+				{
+					kind: "FieldDefinition",
+					name: {
+						kind: "Name",
+						value: "id",
+						loc: {
+							start: 44,
+							end: 46
+						}
+					},
+					arguments: [],
+					type: {
+						kind: "NonNullType",
+						type: {
+							kind: "NamedType",
+							name: {
+								kind: "Name",
+								value: "ID",
+								loc: {
+									start: 48,
+									end: 50
+								}
+							},
+							loc: {
+								start: 48,
+								end: 50
+							}
+						},
+						loc: {
+							start: 48,
+							end: 51
+						}
+					},
+					directives: [],
+					loc: {
+						start: 44,
+						end: 51
+					}
+				},
+				{
+					kind: "FieldDefinition",
+					name: {
+						kind: "Name",
+						value: "createdAt",
+						loc: {
+							start: 52,
+							end: 61
+						}
+					},
+					arguments: [],
+					type: {
+						kind: "NonNullType",
+						type: {
+							kind: "NamedType",
+							name: {
+								kind: "Name",
+								value: "String",
+								loc: {
+									start: 63,
+									end: 69
+								}
+							},
+							loc: {
+								start: 63,
+								end: 69
+							}
+						},
+						loc: {
+							start: 63,
+							end: 70
+						}
+					},
+					directives: [],
+					loc: {
+						start: 52,
+						end: 70
+					}
+				},
+				{
+					kind: "FieldDefinition",
+					name: {
+						kind: "Name",
+						value: "updatedAt",
+						loc: {
+							start: 71,
+							end: 80
+						}
+					},
+					arguments: [],
+					type: {
+						kind: "NamedType",
+						name: {
+							kind: "Name",
+							value: "String",
+							loc: {
+								start: 82,
+								end: 88
+							}
+						},
+						loc: {
+							start: 82,
+							end: 88
+						}
+					},
+					directives: [],
+					loc: {
+						start: 71,
+						end: 88
+					}
+				}
+			],
+			loc: {
+				start: 27,
+				end: 90
+			}
+		}
+	]
 };
+const mutationMock = {
+	kind: "ObjectTypeDefinition",
+	name: {
+		kind: "Name",
+		value: "Mutation",
+		loc: {
+			start: 33,
+			end: 41
+		}
+	},
+	interfaces: [],
+	directives: [],
+	fields: [
+		{
+			kind: "FieldDefinition",
+			name: {
+				kind: "Name",
+				value: "fake",
+				loc: {
+					start: 44,
+					end: 48
+				}
+			},
+			arguments: [],
+			type: {
+				kind: "NamedType",
+				name: {
+					kind: "Name",
+					value: "Float",
+					loc: {
+						start: 50,
+						end: 55
+					}
+				},
+				loc: {
+					start: 50,
+					end: 55
+				}
+			},
+			directives: [],
+			loc: {
+				start: 44,
+				end: 55
+			}
+		}
+	],
+	loc: {
+		start: 28,
+		end: 57
+	}
+}
 
-export const getEnumMapped = (totalEnums: number = 1): any[] => {
-	const enums = [];
-	for (let i = 0; i < totalEnums; ++i) enums.push(enumMock);
-	return enums;
-};
+const mocks = new Map();
+mocks.set(DocumentNodeType.DIRECTIVE, directiveMock);
+mocks.set(DocumentNodeType.ENUM, enumMock);
+mocks.set(DocumentNodeType.SCALAR, scalarMock);
+mocks.set(DocumentNodeType.UNION, unionMock);
+mocks.set(OperationType.QUERY, queryMock);
+mocks.set(DocumentNodeType.OBJECT, objectMock);
+mocks.set(DocumentNodeType.INPUT, inputMock);
+mocks.set(DocumentNodeType.INTERFACE, interfaceMock);
+mocks.set(OperationType.MUTATION, mutationMock);
 
-export const getInputMapped = (totalInputs: number = 1): any[] => {
-	const inputs = [];
-	for (let i = 0; i < totalInputs; ++i) inputs.push(inputMock);
-	return inputs;
-};
+export const getTypeMapped = (total: number = 1, type: any): any[] => {
+	const results = []
+	for (let i = 0; i < total; ++i) results.push(mocks.get(type));
+	return results;
+}
 
 export class SchemaBreakdownMock {
 	private map: Map<string, any[]> = new Map();
 
 	addDirectives(totalDirectives: number = 1): SchemaBreakdownMock {
-		const directives = getDirectiveMapped(totalDirectives);
+		const directives = getTypeMapped(totalDirectives, DocumentNodeType.DIRECTIVE);
 		this.map.set(DocumentNodeType.DIRECTIVE, directives);
 		return this;
 	}
 
 	addEnums(totalEnums: number = 1): SchemaBreakdownMock {
-		const enums = getEnumMapped(totalEnums);
+		const enums = getTypeMapped(totalEnums, DocumentNodeType.ENUM);
 		this.map.set(DocumentNodeType.ENUM, enums);
 		return this;
 	}
 
 	addInputs(totalInputs: number = 1): SchemaBreakdownMock {
-		const inputs = getInputMapped(totalInputs);
+		const inputs = getTypeMapped(totalInputs, DocumentNodeType.INPUT);
 		this.map.set(DocumentNodeType.INPUT, inputs);
+		return this;
+	}
+
+	addInterfaces(totalInterfaces: number = 1): SchemaBreakdownMock {
+		const interfaces = getTypeMapped(totalInterfaces, DocumentNodeType.INTERFACE);
+		this.map.set(DocumentNodeType.INTERFACE, interfaces);
+		return this;
+	}
+
+	addObjects(totalObjects: number = 1): SchemaBreakdownMock {
+		const objects = getTypeMapped(totalObjects, DocumentNodeType.OBJECT);
+		const queries = getTypeMapped(totalObjects, OperationType.QUERY);
+		const mutations = getTypeMapped(totalObjects, OperationType.MUTATION);
+		this.map.set(DocumentNodeType.OBJECT, [...objects, ...queries, ...mutations]);
 		return this;
 	}
 

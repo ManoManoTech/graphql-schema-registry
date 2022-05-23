@@ -2,12 +2,12 @@ import {
 	getTypeDefDataMock,
 	SchemaBreakdownMock,
 } from './mocks/breakDownStrategy.mock';
-import { InputStrategy } from '../../../../src/controller/schemaBreakdown/input';
+import {InterfaceStrategy} from "../../../../src/controller/schemaBreakdown/interface";
 
 describe('Breaking down enums from schema', () => {
-	const strategy = new InputStrategy();
+	const strategy = new InterfaceStrategy();
 
-	test('No inputs on the schema', () => {
+	test('No interfaces on the schema', () => {
 		const mock = new SchemaBreakdownMock().build();
 		const data = getTypeDefDataMock(mock);
 
@@ -15,16 +15,16 @@ describe('Breaking down enums from schema', () => {
 		expect(entities.length).toEqual(0);
 	});
 
-	test('Inputs exists on schema', () => {
-		const mock = new SchemaBreakdownMock().addInputs().build();
+	test('Interfaces exists on schema', () => {
+		const mock = new SchemaBreakdownMock().addInterfaces().build();
 		const data = getTypeDefDataMock(mock);
 
 		const entities = strategy.getEntities(data);
 		expect(entities.length).toEqual(1);
 	});
 
-	test('Mixed inputs on same schema', () => {
-		const mock = new SchemaBreakdownMock().addInputs().addEnums().build();
+	test('Mixed interfaces on same schema', () => {
+		const mock = new SchemaBreakdownMock().addInterfaces().addEnums().build();
 		const data = getTypeDefDataMock(mock);
 
 		const entities = strategy.getEntities(data);
