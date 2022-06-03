@@ -92,14 +92,14 @@ function mapToOperationUsageResponse(
 				const { id, tag } = version;
 				const { hash, clientId } = keyHandler.parseOperationKey(key);
 				if (clientId !== id) {
-					return
+					return;
 				}
-				const existingVersionTag = versions.find(
-					(v) => v.id === tag
+				const existingVersionTag = versions.find((v) => v.id === tag);
+				const clientExecutions = executions.find(
+					(e) => e.hash === hash && e.clientId === clientId
 				);
-				const clientExecutions = executions.find((e) => e.hash === hash && e.clientId === clientId);
 				if (!clientExecutions) {
-					return
+					return;
 				}
 				if (existingVersionTag) {
 					existingVersionTag.operations.push({

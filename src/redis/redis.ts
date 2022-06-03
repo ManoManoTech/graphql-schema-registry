@@ -85,7 +85,7 @@ export class RedisRepository implements RedisService {
 			success,
 			total: error + success,
 			hash: input.hash,
-			clientId: input.clientId
+			clientId: input.clientId,
 		} as ExecutionsDAO;
 	}
 
