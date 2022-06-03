@@ -13,5 +13,4 @@ export const initServer = async (app) => {
 
 export const getServer = () => {
 	return server;
-}
-
+};

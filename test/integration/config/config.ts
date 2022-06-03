@@ -6,7 +6,7 @@ import config from '../../../src/config';
 import { getSeedFile } from './db-config';
 import { extendExpect } from './customMatchers/toContainObject';
 import expect from 'expect';
-import {getServer} from "../../../src/graphql";
+import { getServer } from '../../../src/graphql';
 
 extendExpect(expect);
 
@@ -53,7 +53,7 @@ BeforeAll({ timeout: 60000 * 1000 }, async () => {
 	await sleep(1500);
 	const { warmup } = await import('../../../src/start');
 	await warmup();
-	const {getServer} = await import('../../../src/graphql/index');
+	const { getServer } = await import('../../../src/graphql/index');
 	apolloServer = getServer();
 });
 

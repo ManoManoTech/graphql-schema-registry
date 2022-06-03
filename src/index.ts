@@ -1,6 +1,6 @@
 import express from 'express';
 import { get } from 'lodash';
-import {initServer} from './graphql/index';
+import { initServer } from './graphql/index';
 import * as kafka from './kafka';
 import config from './config';
 import router from './router';
