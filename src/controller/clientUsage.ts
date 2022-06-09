@@ -11,11 +11,13 @@ export class ClientUsageController {
 
 	async registerUsage(buffer: Buffer) {
 		const decodedReport = Report.decode(buffer).toJSON();
-		const firstQuery =
-			decodedReport.tracesPerQuery[
-				Object.keys(decodedReport.tracesPerQuery)[0]
-			];
-		const { clientName, clientVersion } = firstQuery.trace[0];
+		const q = Object.keys(decodedReport.tracesPerQuery)[0];
+		const firstQuery = decodedReport.tracesPerQuery[q];
+		const trace = firstQuery.trace[0];
+		if (q.includes('IntrospectionQuery')) {
+			return;
+		}
+		const { clientName, clientVersion } = trace;
 
 		const client = await this.clientRepository.getClientByUnique(
 			clientName,
@@ -25,7 +27,7 @@ export class ClientUsageController {
 			.createHash('md5')
 			.update(Object.keys(decodedReport.tracesPerQuery)[0])
 			.digest('hex');
-		const isError = 'error' in firstQuery.trace[0].root;
+		const isError = 'error' in trace.root;
 
 		if (!client || !(await redisWrapper.get(`o_${client.id}_${hash}`))) {
 			const strategy = new RegisterUsage(
