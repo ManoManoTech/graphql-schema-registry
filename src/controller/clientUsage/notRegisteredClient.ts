@@ -29,7 +29,7 @@ export class RegisterUsage {
 		private hash: string
 	) {}
 
-	async execute() {
+	async execute(totalTimes: number = 1) {
 		const definition = gql`
 			${this.op}
 		`;
@@ -71,12 +71,12 @@ export class RegisterUsage {
 			);
 			await redisWrapper.set(
 				`s_${client.id}_${this.hash}_${getTimestamp()}`,
-				Number(!this.isError),
+				Number(!this.isError ? totalTimes : 0),
 				ttl
 			);
 			await redisWrapper.set(
 				`e_${client.id}_${this.hash}_${getTimestamp()}`,
-				Number(this.isError),
+				Number(this.isError ? totalTimes : 0),
 				ttl
 			);
 		});

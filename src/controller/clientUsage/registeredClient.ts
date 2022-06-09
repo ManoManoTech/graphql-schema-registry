@@ -9,8 +9,11 @@ export class UpdateUsageStrategy {
 		private hash: string
 	) {}
 
-	async execute() {
+	async execute(totalQueries: number = 1) {
 		const key = `${this.clientId}_${this.hash}_${getTimestamp()}`;
-		await redisWrapper.incr(`${this.isError ? 'e' : 's'}_${key}`);
+		await redisWrapper.incr(
+			`${this.isError ? 'e' : 's'}_${key}`,
+			totalQueries
+		);
 	}
 }
