@@ -4,15 +4,10 @@ import { OperationTransactionalRepository } from '../../database/schemaBreakdown
 import { OperationParamsTransactionalRepository } from '../../database/schemaBreakdown/operation_params';
 import { TypeTransactionalRepository } from '../../database/schemaBreakdown/type';
 import { FieldTransactionRepository } from '../../database/schemaBreakdown/field';
-import { transact } from '../../database';
-import { ClientRepository } from '../../database/client';
-import crypto from 'crypto';
 import redisWrapper from '../../redis';
 import { getTimestamp } from '../../redis/utils';
 import { Client } from '../../model/client';
 import { QueryResult } from '../../model/usage_counter';
-
-const { Report } = require('apollo-reporting-protobuf');
 
 export class RegisterUsage {
 	private operationRepository =
@@ -21,7 +16,6 @@ export class RegisterUsage {
 		OperationParamsTransactionalRepository.getInstance();
 	private typeRepository = TypeTransactionalRepository.getInstance();
 	private fieldRepository = FieldTransactionRepository.getInstance();
-	private clientRepository = ClientRepository.getInstance();
 
 	constructor(
 		private op: string,
