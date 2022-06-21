@@ -97,7 +97,6 @@ export class RedisRepository implements RedisService {
 		return Promise.resolve(undefined);
 	}
 
-	// TODO: Extend to fields
 	private validateUsage(
 		id: number,
 		dao: ClientOperationDAO,

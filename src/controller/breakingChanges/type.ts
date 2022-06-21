@@ -13,8 +13,8 @@ export class TypeChange implements BreakingChangeService {
 
 	async validateUsage(
 		change: Change,
-		usage_days: number,
-		min_usages: number
+		usage_days: number = 30,
+		min_usages: number = 10
 	) {
 		const redisRepo = RedisRepository.getInstance();
 		const typeRepo = TypeTransactionalRepository.getInstance();
@@ -29,13 +29,17 @@ export class TypeChange implements BreakingChangeService {
 		);
 
 		if (!operations) {
-			return true;
+			return {
+				...change,
+				isBreakingChange: false,
+				totalUsages: 0,
+			};
 		}
 		const totalUsages = await checkUsage(operations, usage_days);
 		return {
 			...change,
 			isBreakingChange: totalUsages >= min_usages,
 			totalUsages,
-		} as any;
+		};
 	}
 }

@@ -14,8 +14,8 @@ export class EnumChange implements BreakingChangeService {
 
 	async validateUsage(
 		change: Change,
-		usage_days: number,
-		min_usages: number
+		usage_days: number = 30,
+		min_usages: number = 10
 	) {
 		const redisRepo = RedisRepository.getInstance();
 
@@ -33,7 +33,11 @@ export class EnumChange implements BreakingChangeService {
 		);
 
 		if (resultOperations.length === 0) {
-			return true;
+			return {
+				...change,
+				isBreakingChange: false,
+				totalUsages: 0,
+			};
 		}
 
 		const resultUsages = await Promise.all(

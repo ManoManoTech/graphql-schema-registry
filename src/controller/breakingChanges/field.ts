@@ -16,8 +16,8 @@ export class FieldChange implements BreakingChangeService {
 
 	async validateUsage(
 		change: Change,
-		usage_days: number,
-		min_usages: number
+		usage_days: number = 30,
+		min_usages: number = 10
 	) {
 		const redisRepo = RedisRepository.getInstance();
 
@@ -54,7 +54,11 @@ export class FieldChange implements BreakingChangeService {
 		}
 
 		if (!operations) {
-			return true;
+			return {
+				...change,
+				isBreakingChange: false,
+				totalUsages: 0,
+			};
 		}
 		const totalUsages = await checkUsage(operations, usage_days);
 
