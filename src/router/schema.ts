@@ -61,7 +61,6 @@ export async function push(req, res) {
 
 	const data = await pushAndValidateSchema({
 		service,
-		forcePush: req.headers['force-push'],
 	});
 
 	if (config.asyncSchemaUpdates) {
