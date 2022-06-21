@@ -113,7 +113,7 @@ export async function diff(req, res) {
 			name: Joi.string().min(3).max(200).required(),
 			version: Joi.string().min(1).max(100).required(),
 			type_defs: Joi.string().required(),
-			usage_days: Joi.number().optional().default(30),
+			usage_days: Joi.number().max(30).optional().default(30),
 			min_usages: Joi.number().min(1).optional(),
 		})
 	);

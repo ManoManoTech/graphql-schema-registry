@@ -4,7 +4,7 @@ import { OperationType } from '../../model/enums';
 import { OperationTransactionalRepository } from '../../database/schemaBreakdown/operations';
 import { FieldTransactionRepository } from '../../database/schemaBreakdown/field';
 import { TypeTransactionalRepository } from '../../database/schemaBreakdown/type';
-import { checkUsage, validateBreakingChange } from './utils';
+import { checkUsage, getCustomChanges, validateBreakingChange } from './utils';
 import { BreakingChangeService } from '../breakingChange';
 
 export class FieldChange implements BreakingChangeService {
@@ -53,19 +53,6 @@ export class FieldChange implements BreakingChangeService {
 			);
 		}
 
-		if (!operations) {
-			return {
-				...change,
-				isBreakingChange: false,
-				totalUsages: 0,
-			};
-		}
-		const totalUsages = await checkUsage(operations, usage_days);
-
-		return {
-			...change,
-			isBreakingChange: totalUsages >= min_usages,
-			totalUsages,
-		} as any;
+		return getCustomChanges(operations, change, usage_days, min_usages);
 	}
 }

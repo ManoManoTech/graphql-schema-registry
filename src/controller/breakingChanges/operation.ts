@@ -1,7 +1,7 @@
 import { Change, ChangeType } from '@graphql-inspector/core';
 import { RedisRepository } from '../../redis/redis';
 import { OperationTransactionalRepository } from '../../database/schemaBreakdown/operations';
-import { checkUsage, validateBreakingChange } from './utils';
+import { checkUsage, getCustomChanges, validateBreakingChange } from './utils';
 import { BreakingChangeService } from '../breakingChange';
 
 export class OperationChange implements BreakingChangeService {
@@ -28,18 +28,6 @@ export class OperationChange implements BreakingChangeService {
 			'operation'
 		);
 
-		if (!operations) {
-			return {
-				...change,
-				isBreakingChange: false,
-				totalUsages: 0,
-			};
-		}
-		const totalUsages = await checkUsage(operations, usage_days);
-		return {
-			...change,
-			isBreakingChange: totalUsages >= min_usages,
-			totalUsages,
-		};
+		return getCustomChanges(operations, change, usage_days, min_usages);
 	}
 }

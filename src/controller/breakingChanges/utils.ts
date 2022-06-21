@@ -8,6 +8,7 @@ import { EnumChange } from './enum';
 import { FieldChange } from './field';
 import { TypeChange } from './type';
 import { Change } from '@graphql-inspector/core';
+import { CustomChange } from '../breakingChange';
 
 type BreakingChangeType =
 	| OperationChange
@@ -60,4 +61,25 @@ export const validateBreakingChange = (
 	change: Change
 ): boolean => {
 	return types.includes(change.type);
+};
+
+export const getCustomChanges = async (
+	operations: ClientOperationsDTO,
+	change: Change,
+	usage_days: number,
+	min_usages: number
+): Promise<CustomChange> => {
+	if (!operations) {
+		return {
+			...change,
+			isBreakingChange: false,
+			totalUsages: 0,
+		};
+	}
+	const totalUsages = await checkUsage(operations, usage_days);
+	return {
+		...change,
+		isBreakingChange: totalUsages >= min_usages,
+		totalUsages,
+	};
 };
