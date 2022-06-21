@@ -1,8 +1,8 @@
-import {Change, ChangeType} from "@graphql-inspector/core";
-import {RedisRepository} from "../../redis/redis";
-import {TypeTransactionalRepository} from "../../database/schemaBreakdown/type";
-import {checkUsage, validateBreakingChange} from "./utils";
-import {BreakingChangeService} from "../breakingChange";
+import { Change, ChangeType } from '@graphql-inspector/core';
+import { RedisRepository } from '../../redis/redis';
+import { TypeTransactionalRepository } from '../../database/schemaBreakdown/type';
+import { checkUsage, validateBreakingChange } from './utils';
+import { BreakingChangeService } from '../breakingChange';
 
 export class TypeChange implements BreakingChangeService {
 	private types = [ChangeType.TypeRemoved, ChangeType.DirectiveRemoved];

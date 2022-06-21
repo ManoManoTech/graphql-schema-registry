@@ -1,11 +1,11 @@
-import {Change, ChangeType} from "@graphql-inspector/core";
-import {RedisRepository} from "../../redis/redis";
-import {OperationType} from "../../model/enums";
-import {OperationTransactionalRepository} from "../../database/schemaBreakdown/operations";
-import {FieldTransactionRepository} from "../../database/schemaBreakdown/field";
-import {TypeTransactionalRepository} from "../../database/schemaBreakdown/type";
-import {checkUsage, validateBreakingChange} from "./utils";
-import {BreakingChangeService} from "../breakingChange";
+import { Change, ChangeType } from '@graphql-inspector/core';
+import { RedisRepository } from '../../redis/redis';
+import { OperationType } from '../../model/enums';
+import { OperationTransactionalRepository } from '../../database/schemaBreakdown/operations';
+import { FieldTransactionRepository } from '../../database/schemaBreakdown/field';
+import { TypeTransactionalRepository } from '../../database/schemaBreakdown/type';
+import { checkUsage, validateBreakingChange } from './utils';
+import { BreakingChangeService } from '../breakingChange';
 
 export class FieldChange implements BreakingChangeService {
 	private types = [ChangeType.FieldRemoved, ChangeType.FieldArgumentRemoved];

@@ -1,8 +1,8 @@
-import {Change, ChangeType} from "@graphql-inspector/core";
-import {RedisRepository} from "../../redis/redis";
-import {OperationTransactionalRepository} from "../../database/schemaBreakdown/operations";
-import {checkUsage, validateBreakingChange} from "./utils";
-import {BreakingChangeService} from "../breakingChange";
+import { Change, ChangeType } from '@graphql-inspector/core';
+import { RedisRepository } from '../../redis/redis';
+import { OperationTransactionalRepository } from '../../database/schemaBreakdown/operations';
+import { checkUsage, validateBreakingChange } from './utils';
+import { BreakingChangeService } from '../breakingChange';
 
 export class OperationChange implements BreakingChangeService {
 	private types = [ChangeType.FieldTypeChanged];

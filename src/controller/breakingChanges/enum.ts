@@ -1,9 +1,9 @@
-import {Change, ChangeType} from "@graphql-inspector/core";
-import {RedisRepository} from "../../redis/redis";
-import {FieldTransactionRepository} from "../../database/schemaBreakdown/field";
-import {TypeTransactionalRepository} from "../../database/schemaBreakdown/type";
-import {checkUsage, validateBreakingChange} from "./utils";
-import {BreakingChangeService} from "../breakingChange";
+import { Change, ChangeType } from '@graphql-inspector/core';
+import { RedisRepository } from '../../redis/redis';
+import { FieldTransactionRepository } from '../../database/schemaBreakdown/field';
+import { TypeTransactionalRepository } from '../../database/schemaBreakdown/type';
+import { checkUsage, validateBreakingChange } from './utils';
+import { BreakingChangeService } from '../breakingChange';
 
 export class EnumChange implements BreakingChangeService {
 	private types = [ChangeType.EnumValueRemoved];

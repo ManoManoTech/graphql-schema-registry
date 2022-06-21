@@ -1,5 +1,5 @@
-import {Change, ChangeType, CriticalityLevel} from '@graphql-inspector/core';
-import {getBreakingChangesTypes} from "./breakingChanges/utils";
+import { Change, ChangeType, CriticalityLevel } from '@graphql-inspector/core';
+import { getBreakingChangesTypes } from './breakingChanges/utils';
 
 export type CustomChange = Change & {
 	isBreakingChange: boolean;
