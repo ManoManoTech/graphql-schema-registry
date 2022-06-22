@@ -46,7 +46,28 @@ describe('POST /schema/diff', function () {
 		expect(result.statusCode).toBe(200);
 
 		expect(result.body).toEqual({
-			data: [],
+			data: [
+				{
+					criticality: { level: 'NON_BREAKING' },
+					message: "Field 'privet' was added to object type 'Query'",
+					path: 'Query.privet',
+					type: 'FIELD_ADDED',
+					isBreakingChange: false,
+					totalUsages: 0
+				},
+				{
+					criticality: {
+						level: 'DANGEROUS',
+						reason: 'Adding an enum value may break existing clients that were not programming defensively against an added case when querying an enum.',
+					},
+					message:
+						"Enum value 'SERVICE_B' was added to enum 'join__Graph'",
+					path: 'join__Graph.SERVICE_B',
+					type: 'ENUM_VALUE_ADDED',
+					isBreakingChange: false,
+					totalUsages: 0
+				},
+			],
 			success: true,
 		});
 	});

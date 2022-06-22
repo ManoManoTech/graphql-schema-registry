@@ -31,17 +31,33 @@ export class BreakingChangeHandler {
 
 	async handle(): Promise<CustomChange[]> {
 		const breakingChanges = this.getBreakingChanges();
+		const notBreakingChanges = this.getNotBreakingChanges();
 		if (breakingChanges.length === 0) {
-			return [];
+			return notBreakingChanges;
 		}
 
-		return await this.validateBreakingChangesUsages(breakingChanges);
+		const enrichedBreakingChanges=  await this.validateBreakingChangesUsages(breakingChanges);
+		return [...enrichedBreakingChanges, ...notBreakingChanges];
 	}
 
 	private getBreakingChanges(): Change[] {
 		return this.diff.filter(
 			(change) => change.criticality.level === CriticalityLevel.Breaking
 		);
+	}
+
+	private getNotBreakingChanges(): CustomChange[] {
+		const changes = this.diff.filter(
+			(change) => change.criticality.level !== CriticalityLevel.Breaking
+		);
+
+		return changes.map(change => {
+			return {
+				...change,
+				isBreakingChange: false,
+				totalUsages: 0
+			}
+		})
 	}
 
 	private async validateBreakingChangesUsages(
