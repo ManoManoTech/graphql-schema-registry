@@ -9,12 +9,14 @@ import { FieldChange } from './field';
 import { TypeChange } from './type';
 import { Change } from '@graphql-inspector/core';
 import { CustomChange } from '../breakingChange';
+import { ArgumentChange } from './argument';
 
 type BreakingChangeType =
 	| OperationChange
 	| EnumChange
 	| FieldChange
-	| TypeChange;
+	| TypeChange
+	| ArgumentChange;
 
 export const getBreakingChangesTypes = (): BreakingChangeType[] => {
 	return [
@@ -22,6 +24,7 @@ export const getBreakingChangesTypes = (): BreakingChangeType[] => {
 		new TypeChange(),
 		new OperationChange(),
 		new EnumChange(),
+		new ArgumentChange(),
 	];
 };
 
@@ -79,7 +82,7 @@ export const getCustomChanges = async (
 	const totalUsages = await checkUsage(operations, usage_days);
 	return {
 		...change,
-		isBreakingChange: totalUsages >= min_usages,
+		isBreakingChange: totalUsages >= min_usages && totalUsages !== 0,
 		totalUsages,
 	};
 };

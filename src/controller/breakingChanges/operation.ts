@@ -14,7 +14,7 @@ export class OperationChange implements BreakingChangeService {
 	async validateUsage(
 		change: Change,
 		usage_days: number = 30,
-		min_usages: number = 10
+		min_usages: number = 0
 	) {
 		const redisRepo = RedisRepository.getInstance();
 		const operationRepo = OperationTransactionalRepository.getInstance();

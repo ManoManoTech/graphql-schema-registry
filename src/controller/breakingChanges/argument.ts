@@ -1,11 +1,12 @@
 import { Change, ChangeType } from '@graphql-inspector/core';
 import { RedisRepository } from '../../redis/redis';
+import { FieldTransactionRepository } from '../../database/schemaBreakdown/field';
 import { TypeTransactionalRepository } from '../../database/schemaBreakdown/type';
-import { checkUsage, getCustomChanges, validateBreakingChange } from './utils';
+import { getCustomChanges, validateBreakingChange } from './utils';
 import { BreakingChangeService } from '../breakingChange';
 
-export class TypeChange implements BreakingChangeService {
-	private types = [ChangeType.TypeRemoved, ChangeType.DirectiveRemoved];
+export class ArgumentChange implements BreakingChangeService {
+	private types = [ChangeType.FieldArgumentTypeChanged];
 
 	validate(change: Change) {
 		return validateBreakingChange(this.types, change);
@@ -17,15 +18,23 @@ export class TypeChange implements BreakingChangeService {
 		min_usages: number = 0
 	) {
 		const redisRepo = RedisRepository.getInstance();
-		const typeRepo = TypeTransactionalRepository.getInstance();
 
 		const split = change.path.split('.');
+		const typeName = split[split.length - 3];
+		const fieldName = split[split.length - 1];
 
-		const typeName = split[0];
+		const fieldRepo = FieldTransactionRepository.getInstance();
+		const typeRepo = TypeTransactionalRepository.getInstance();
+
 		const type = await typeRepo.getTypeByName(typeName);
+		const field = await fieldRepo.getFieldByNameAndParent(
+			fieldName,
+			type.id
+		);
+
 		const operations = await redisRepo.getOperationsByUsage(
-			type.id,
-			'entity'
+			field.id,
+			'field'
 		);
 
 		return getCustomChanges(operations, change, usage_days, min_usages);
