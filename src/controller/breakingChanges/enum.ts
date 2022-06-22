@@ -50,7 +50,7 @@ export class EnumChange implements BreakingChangeService {
 
 		return {
 			...change,
-			isBreakingChange: totalUsages >= min_usages,
+			isBreakingChange: totalUsages >= min_usages && totalUsages !== 0,
 			totalUsages,
 		} as any;
 	}
