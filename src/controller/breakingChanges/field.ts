@@ -8,7 +8,13 @@ import { checkUsage, getCustomChanges, validateBreakingChange } from './utils';
 import { BreakingChangeService } from '../breakingChange';
 
 export class FieldChange implements BreakingChangeService {
-	private types = [ChangeType.FieldRemoved, ChangeType.FieldArgumentRemoved];
+	private types = [
+		ChangeType.FieldRemoved,
+		ChangeType.FieldArgumentRemoved,
+		ChangeType.FieldTypeChanged,
+		ChangeType.InputFieldTypeChanged,
+		ChangeType.InputFieldRemoved
+	];
 
 	validate(change: Change) {
 		return validateBreakingChange(this.types, change);

@@ -1,11 +1,13 @@
 import { Change, ChangeType } from '@graphql-inspector/core';
 import { RedisRepository } from '../../redis/redis';
-import { OperationTransactionalRepository } from '../../database/schemaBreakdown/operations';
-import { checkUsage, getCustomChanges, validateBreakingChange } from './utils';
+import { TypeTransactionalRepository } from '../../database/schemaBreakdown/type';
+import { getCustomChanges, validateBreakingChange } from './utils';
 import { BreakingChangeService } from '../breakingChange';
 
-export class OperationChange implements BreakingChangeService {
-	private types = [];
+export class InterfaceChange implements BreakingChangeService {
+	private types = [
+		ChangeType.ObjectTypeInterfaceRemoved
+	];
 
 	validate(change: Change) {
 		return validateBreakingChange(this.types, change);
@@ -17,15 +19,13 @@ export class OperationChange implements BreakingChangeService {
 		min_usages: number = 0
 	) {
 		const redisRepo = RedisRepository.getInstance();
-		const operationRepo = OperationTransactionalRepository.getInstance();
 
-		const split = change.path.split('.');
-		const operationName = split[split.length - 1];
+		const typeRepo = TypeTransactionalRepository.getInstance();
+		const type = await typeRepo.getTypeByName(change.path);
 
-		const operation = await operationRepo.getOperationByName(operationName);
 		const operations = await redisRepo.getOperationsByUsage(
-			operation.id,
-			'operation'
+			type.id,
+			'entity'
 		);
 
 		return getCustomChanges(operations, change, usage_days, min_usages);

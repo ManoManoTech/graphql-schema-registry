@@ -10,13 +10,15 @@ import { TypeChange } from './type';
 import { Change } from '@graphql-inspector/core';
 import { CustomChange } from '../breakingChange';
 import { ArgumentChange } from './argument';
+import {InterfaceChange} from "./interface";
 
 type BreakingChangeType =
 	| OperationChange
 	| EnumChange
 	| FieldChange
 	| TypeChange
-	| ArgumentChange;
+	| ArgumentChange
+	| InterfaceChange;
 
 export const getBreakingChangesTypes = (): BreakingChangeType[] => {
 	return [
@@ -25,6 +27,7 @@ export const getBreakingChangesTypes = (): BreakingChangeType[] => {
 		new OperationChange(),
 		new EnumChange(),
 		new ArgumentChange(),
+		new InterfaceChange(),
 	];
 };
 
