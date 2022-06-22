@@ -53,7 +53,7 @@ describe('POST /schema/diff', function () {
 					path: 'Query.privet',
 					type: 'FIELD_ADDED',
 					isBreakingChange: false,
-					totalUsages: 0
+					totalUsages: 0,
 				},
 				{
 					criticality: {
@@ -65,7 +65,7 @@ describe('POST /schema/diff', function () {
 					path: 'join__Graph.SERVICE_B',
 					type: 'ENUM_VALUE_ADDED',
 					isBreakingChange: false,
-					totalUsages: 0
+					totalUsages: 0,
 				},
 			],
 			success: true,

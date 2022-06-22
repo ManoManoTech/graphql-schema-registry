@@ -36,7 +36,8 @@ export class BreakingChangeHandler {
 			return notBreakingChanges;
 		}
 
-		const enrichedBreakingChanges=  await this.validateBreakingChangesUsages(breakingChanges);
+		const enrichedBreakingChanges =
+			await this.validateBreakingChangesUsages(breakingChanges);
 		return [...enrichedBreakingChanges, ...notBreakingChanges];
 	}
 
@@ -51,13 +52,13 @@ export class BreakingChangeHandler {
 			(change) => change.criticality.level !== CriticalityLevel.Breaking
 		);
 
-		return changes.map(change => {
+		return changes.map((change) => {
 			return {
 				...change,
 				isBreakingChange: false,
-				totalUsages: 0
-			}
-		})
+				totalUsages: 0,
+			};
+		});
 	}
 
 	private async validateBreakingChangesUsages(
