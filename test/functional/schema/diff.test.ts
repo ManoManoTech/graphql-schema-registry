@@ -96,7 +96,7 @@ describe('POST /schema/diff', function () {
 					path: 'Query.world',
 					type: 'FIELD_REMOVED',
 					isBreakingChange: false,
-					totalUsages: 0
+					totalUsages: 0,
 				},
 			],
 			success: true,
