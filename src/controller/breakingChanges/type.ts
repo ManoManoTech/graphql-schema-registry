@@ -22,6 +22,15 @@ export class TypeChange implements BreakingChangeService {
 		const split = change.path.split('.');
 
 		const typeName = split[0];
+
+		if (typeName === 'Mutation' || typeName === 'Query') {
+			return {
+				...change,
+				isBreakingChange: false,
+				totalUsages: 0,
+			};
+		}
+
 		const type = await typeRepo.getTypeByName(typeName);
 		const operations = await redisRepo.getOperationsByUsage(
 			type.id,
