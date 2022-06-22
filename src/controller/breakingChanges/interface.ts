@@ -5,9 +5,7 @@ import { getCustomChanges, validateBreakingChange } from './utils';
 import { BreakingChangeService } from '../breakingChange';
 
 export class InterfaceChange implements BreakingChangeService {
-	private types = [
-		ChangeType.ObjectTypeInterfaceRemoved
-	];
+	private types = [ChangeType.ObjectTypeInterfaceRemoved];
 
 	validate(change: Change) {
 		return validateBreakingChange(this.types, change);

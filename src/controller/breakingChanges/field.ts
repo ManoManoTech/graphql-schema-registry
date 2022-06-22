@@ -13,7 +13,7 @@ export class FieldChange implements BreakingChangeService {
 		ChangeType.FieldArgumentRemoved,
 		ChangeType.FieldTypeChanged,
 		ChangeType.InputFieldTypeChanged,
-		ChangeType.InputFieldRemoved
+		ChangeType.InputFieldRemoved,
 	];
 
 	validate(change: Change) {

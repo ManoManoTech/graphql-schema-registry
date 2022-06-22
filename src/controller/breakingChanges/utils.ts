@@ -10,7 +10,7 @@ import { TypeChange } from './type';
 import { Change } from '@graphql-inspector/core';
 import { CustomChange } from '../breakingChange';
 import { ArgumentChange } from './argument';
-import {InterfaceChange} from "./interface";
+import { InterfaceChange } from './interface';
 
 type BreakingChangeType =
 	| OperationChange
