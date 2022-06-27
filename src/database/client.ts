@@ -10,7 +10,7 @@ interface ClientService {
 		name: string,
 		version: string
 	): Promise<Client>;
-	insertClient(trx: Transaction, client: ClientPayload): Promise<number>;
+	insertClient(client: ClientPayload): Promise<number>;
 }
 
 const TABLE_NAME = 'clients';
@@ -73,18 +73,15 @@ export class ClientRepository
 		return connection(TABLE_NAME).select().where('id', id).first();
 	}
 
+	async insertClient(client: ClientPayload): Promise<number> {
+		return connection(TABLE_NAME).insert(client);
+	}
+
 	async getClientsByIds(ids: number[]): Promise<ClientDTO[]> {
 		const clients = await connection(TABLE_NAME)
 			.select()
 			.whereIn('id', ids);
 		return this.groupClientsByName(clients);
-	}
-
-	async insertClient(
-		trx: Transaction,
-		client: ClientPayload
-	): Promise<number> {
-		return super.insert(trx, [client]);
 	}
 
 	private groupClientsByName(clients: ClientDAO[]): ClientDTO[] {
