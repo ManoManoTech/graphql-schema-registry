@@ -2,7 +2,7 @@ import zlib from 'zlib';
 import { logger } from '../logger';
 
 export default async (req, res, next) => {
-	logger.info("MIDDLEWARE CALL");
+	logger.info('MIDDLEWARE CALL');
 
 	const data = [];
 	let buffer;
