@@ -23,6 +23,7 @@ const redisWrapper = {
 			port,
 			password,
 			db: 2,
+			tls: {},
 			retry_strategy: (options) => {
 				if (options.error && options.error.code === 'ECONNREFUSED') {
 					logger.error('Redis server refused the connection', {
