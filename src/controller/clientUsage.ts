@@ -31,6 +31,9 @@ export class ClientUsageController {
 			const hash = crypto.createHash('md5').update(query).digest('hex');
 
 			const clientPromises = clients.map((client) => {
+				if (!decodedReport.tracesPerQuery[query].trace) {
+					return;
+				}
 				const traces = decodedReport.tracesPerQuery[query].trace.filter(
 					(trace) =>
 						trace.clientName === client.name &&
