@@ -1,10 +1,15 @@
 query getFieldUsageTrack($id: Int!, $startDate: Date!, $endDate: Date!) {
-	getEntityUsageTrack(id: $id, startDate: $startDate, endDate: $endDate) {
-		id
-		executions {
-			success
-			error
-			total
-		}
-	}
+  getFieldUsageTrack(id: $id, startDate: $startDate, endDate: $endDate) {
+    client {
+      name
+      versions {
+        id
+        execution {
+          success
+          error
+          total
+        }
+      }
+    }
+  }
 }

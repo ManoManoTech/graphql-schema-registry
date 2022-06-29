@@ -4,7 +4,6 @@ import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { redisDataPath } from '../config/config';
 import { getTimestamp } from '../../../src/redis/utils';
-import { parseInputDate } from '../../../src/graphql/resolvers/getOperationUsageTrack';
 
 let redisWrapper;
 

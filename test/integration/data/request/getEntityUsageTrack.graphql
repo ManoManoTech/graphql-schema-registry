@@ -1,0 +1,10 @@
+query getEntityUsageTrack($id: Int!, $startDate: Date!, $endDate: Date!) {
+	getEntityUsageTrack(id: $id, startDate: $startDate, endDate: $endDate) {
+		id
+		executions {
+			success
+			error
+			total
+		}
+	}
+}
