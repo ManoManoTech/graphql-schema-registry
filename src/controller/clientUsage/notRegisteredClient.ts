@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client/core';
-import {DefinitionNode, OperationDefinitionNode} from 'graphql';
+import { DefinitionNode, OperationDefinitionNode } from 'graphql';
 import { OperationTransactionalRepository } from '../../database/schemaBreakdown/operations';
 import { OperationParamsTransactionalRepository } from '../../database/schemaBreakdown/operation_params';
 import { TypeTransactionalRepository } from '../../database/schemaBreakdown/type';
@@ -31,11 +31,13 @@ export class RegisterUsage {
 		const definition = gql`
 			${this.op}
 		`;
-		const [fragments, operations] = definition.definitions.reduce((acc, cur) => {
-			acc[cur.kind === 'FragmentDefinition' ? 0 : 1].push(cur);
-			return acc;
-		}, [[] as DefinitionNode[], [] as DefinitionNode[]]);
-
+		const [fragments, operations] = definition.definitions.reduce(
+			(acc, cur) => {
+				acc[cur.kind === 'FragmentDefinition' ? 0 : 1].push(cur);
+				return acc;
+			},
+			[[] as DefinitionNode[], [] as DefinitionNode[]]
+		);
 
 		const outerPromises = operations.map(
 			async (clientOp: OperationDefinitionNode) => {
@@ -77,7 +79,7 @@ export class RegisterUsage {
 		);
 	}
 
-	private async mapOperation(op: any, outerFragments?: any[]) {
+	private async mapOperation(op: any, outerFragments: any[]) {
 		const operationName = op.name.value;
 		const operation = await this.operationRepository.getOperationByName(
 			operationName
@@ -93,39 +95,47 @@ export class RegisterUsage {
 			outputParam.type_id
 		);
 		const [fragments, fields] = op.selectionSet.selections
-			.filter((selection: any) => !(selection.name?.value).startsWith('__'))
-			.reduce((acc, cur) => {
-				acc[cur.kind === 'FragmentSpread' ? 0 : 1].push(cur);
-				return acc;
-			}, [[] as any[], [] as any[]]);
+			.filter(
+				(selection: any) => !(selection.name?.value).startsWith('__')
+			)
+			.reduce(
+				(acc, cur) => {
+					acc[cur.kind === 'FragmentSpread' ? 0 : 1].push(cur);
+					return acc;
+				},
+				[[] as any[], [] as any[]]
+			);
 
-		const entityPromises = fragments.map(f => {
-			const outerFragment = outerFragments.find(of => of.name.value === f.name.value);
+		const entityPromises = fragments.map((f) => {
+			const outerFragment = outerFragments.find(
+				(of) => of.name.value === f.name.value
+			);
 			if (!outerFragment) {
 				return null;
 			}
 			return this.getFields(
-				outerFragment.selectionSet.selections
-					.filter((selection: any) => !(selection.name?.value).startsWith('__')),
+				outerFragment.selectionSet.selections.filter(
+					(selection: any) =>
+						!(selection.name?.value).startsWith('__')
+				),
 				outputType.id
-			)
+			);
 		});
 
 		const response = await Promise.all(entityPromises);
 		const fragmentEntities = response.filter(Boolean);
 
-		const entities = await this.getFields(
-			fields,
-			outputType.id
-		);
+		const entities = await this.getFields(fields, outputType.id);
 		const mergedEntities = [...fragmentEntities, entities];
 		const result = {
 			id: operation.id,
 			entities: [],
 		};
-		mergedEntities.forEach(m => {
+		mergedEntities.forEach((m) => {
 			m.forEach((value, key) => {
-				const existingEntity = result.entities.find(e => e.objectId === key);
+				const existingEntity = result.entities.find(
+					(e) => e.objectId === key
+				);
 				if (existingEntity) {
 					existingEntity.fields = existingEntity.fields.concat(value);
 				} else {
@@ -135,7 +145,7 @@ export class RegisterUsage {
 					});
 				}
 			});
-		})
+		});
 
 		return result;
 	}
@@ -157,8 +167,10 @@ export class RegisterUsage {
 			this.insertIntoMap(entities, parentId, f.id);
 			if (field.selectionSet) {
 				const subfields = await this.getFields(
-					field.selectionSet.selections
-						.filter((selection: any) => !(selection.name?.value).startsWith('__')),
+					field.selectionSet.selections.filter(
+						(selection: any) =>
+							!(selection.name?.value).startsWith('__')
+					),
 					f.children_type_id
 				);
 				subfields.forEach((value, key) => {
