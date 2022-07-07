@@ -51,17 +51,17 @@ export function getUsagesForClients(
 	client: ClientPayload,
 	query: any
 ): QueryResult {
-	const traces = query?.trace.filter(
+	const traces = query?.trace?.filter(
 		(trace) =>
 			trace.clientName === client.name &&
 			trace.clientVersion === client.version
-	);
+	) ?? [];
 
-	const statsWithContext = query?.statsWithContext.filter(
+	const statsWithContext = query?.statsWithContext?.filter(
 		(stat) =>
 			stat.context.clientName === client.name &&
 			stat.context.clientVersion === client.version
-	);
+	) ?? [];
 
 	const queryResult: QueryResult = {
 		errors: 0,
