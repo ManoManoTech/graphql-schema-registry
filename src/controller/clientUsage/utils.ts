@@ -1,6 +1,6 @@
 import { Client, ClientPayload } from '../../model/client';
 import { ClientRepository } from '../../database/client';
-import {QueryResult} from "../../model/usage_counter";
+import { QueryResult } from '../../model/usage_counter';
 
 export function extractDefinitionData(definition: any): any {
 	return definition.definitions
@@ -47,7 +47,10 @@ export async function getClientsFromTrace(
 	return clients;
 }
 
-export function getUsagesForClients(client: ClientPayload, query: any): QueryResult {
+export function getUsagesForClients(
+	client: ClientPayload,
+	query: any
+): QueryResult {
 	const traces = query?.trace.filter(
 		(trace) =>
 			trace.clientName === client.name &&
@@ -58,24 +61,26 @@ export function getUsagesForClients(client: ClientPayload, query: any): QueryRes
 		(stat) =>
 			stat.context.clientName === client.name &&
 			stat.context.clientVersion === client.version
-	)
+	);
 
 	const queryResult: QueryResult = {
 		errors: 0,
-		success: 0
-	}
+		success: 0,
+	};
 
-	traces.forEach(trace => {
+	traces.forEach((trace) => {
 		const isError = 'error' in trace.root;
-		isError ? queryResult.errors++ : queryResult.success++
-	})
+		isError ? queryResult.errors++ : queryResult.success++;
+	});
 
-	statsWithContext.forEach(stat => {
+	statsWithContext.forEach((stat) => {
 		const total = Number(stat.queryLatencyStats.requestCount);
-		const totalErrors = Number(stat.queryLatencyStats.rootErrorStats.errorsCount);
+		const totalErrors = Number(
+			stat.queryLatencyStats.rootErrorStats.errorsCount
+		);
 		queryResult.errors += totalErrors;
-		queryResult.success += (total - totalErrors);
-	})
+		queryResult.success += total - totalErrors;
+	});
 
 	return queryResult;
 }

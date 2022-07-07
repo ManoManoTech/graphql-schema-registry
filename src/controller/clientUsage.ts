@@ -5,7 +5,7 @@ import { RegisterUsage } from './clientUsage/notRegisteredClient';
 import { UpdateUsageStrategy } from './clientUsage/registeredClient';
 import redisWrapper from '../redis';
 import crypto from 'crypto';
-import {getClientsFromTrace, getUsagesForClients} from './clientUsage/utils';
+import { getClientsFromTrace, getUsagesForClients } from './clientUsage/utils';
 import { ClientPayload } from '../model/client';
 import { QueryResult } from '../model/usage_counter';
 import { logger } from '../logger';
@@ -27,7 +27,10 @@ export class ClientUsageController {
 			const hash = crypto.createHash('md5').update(query).digest('hex');
 
 			const clientPromises = clients.map((client) => {
-				const queryResult = getUsagesForClients(client, decodedReport.tracesPerQuery[query]);
+				const queryResult = getUsagesForClients(
+					client,
+					decodedReport.tracesPerQuery[query]
+				);
 
 				return this.registerClient(query, client, queryResult, hash);
 			});
