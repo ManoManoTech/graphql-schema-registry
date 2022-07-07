@@ -1,5 +1,6 @@
 import {
-	ClientOperationsDTO, Executions,
+	ClientOperationsDTO,
+	Executions,
 	ExecutionsDAO,
 	FieldClientVersion,
 	FieldUsageResponse,
@@ -43,7 +44,7 @@ export default async function getFieldUsageTrack(
 	const operationUsage = mapToUsageResponse(
 		clients,
 		operations,
-		resultExecutions,
+		resultExecutions
 	);
 	return operationUsage.sort((a, b) => {
 		return a.client.name.localeCompare(b.client.name);
@@ -53,13 +54,10 @@ export default async function getFieldUsageTrack(
 function mapToUsageResponse(
 	clients: ClientDTO[],
 	operations: ClientOperationsDTO,
-	executions: ExecutionsDAO[],
+	executions: ExecutionsDAO[]
 ): FieldUsageResponse {
 	return clients.map((c) => {
-		const versions = calculateVersionExecutions(
-			c.versions,
-			executions,
-		);
+		const versions = calculateVersionExecutions(c.versions, executions);
 		return {
 			client: {
 				name: c.name,
@@ -73,25 +71,30 @@ function mapToUsageResponse(
 
 export function calculateVersionExecutions(
 	clientVersions: ClientVersion[],
-	executions: ExecutionsDAO[],
+	executions: ExecutionsDAO[]
 ): FieldClientVersion[] {
-	return clientVersions.map(client => {
+	return clientVersions.map((client) => {
 		const { id, tag } = client;
-		const clientExecutions = executions.filter(exec => exec.clientId === id);
+		const clientExecutions = executions.filter(
+			(exec) => exec.clientId === id
+		);
 
-		const groupExecutions = clientExecutions.reduce((acc, cur) => {
-			acc.success += cur.success;
-			acc.error += cur.error;
-			acc.total += cur.total;
-			return acc;
-		}, {
-			success: 0,
-			error: 0,
-			total: 0
-		} as Executions)
+		const groupExecutions = clientExecutions.reduce(
+			(acc, cur) => {
+				acc.success += cur.success;
+				acc.error += cur.error;
+				acc.total += cur.total;
+				return acc;
+			},
+			{
+				success: 0,
+				error: 0,
+				total: 0,
+			} as Executions
+		);
 		return {
 			id: tag,
-			execution: groupExecutions
-		}
-	})
+			execution: groupExecutions,
+		};
+	});
 }

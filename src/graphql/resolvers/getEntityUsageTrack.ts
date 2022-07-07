@@ -33,7 +33,9 @@ export default async function getEntityUsageTrack(
 	const fields: Map<number, Executions> = new Map();
 	operations.forEach((operation, key) => {
 		const { clientId, hash } = keyHandler.parseOperationKey(key);
-		const executions = resultExecutions.find((e) => e.hash === hash && clientId === e.clientId);
+		const executions = resultExecutions.find(
+			(e) => e.hash === hash && clientId === e.clientId
+		);
 		const fieldIds = [];
 		operation.operations.forEach((o) => {
 			o.entities.forEach((e) => {
