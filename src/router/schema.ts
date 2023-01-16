@@ -5,6 +5,7 @@ import {
 	pushAndValidateSchema,
 	deactivateSchema,
 	diffSchemas,
+	getSuperGraphSchema,
 } from '../controller/schema';
 import { connection } from '../database';
 import config from '../config';
@@ -12,6 +13,8 @@ import * as kafka from '../kafka';
 import { ClientUsageController } from '../controller/clientUsage';
 import { Change } from '@graphql-inspector/core';
 import { BreakingChangeHandler } from '../controller/breakingChange';
+import { Request, Response } from 'express';
+import { logger } from '../logger';
 
 export async function composeLatest(req, res) {
 	const schema = await getAndValidateSchema(connection, false, false);
@@ -152,4 +155,11 @@ export async function usage(req, res) {
 	return res.json({
 		success: true,
 	});
+}
+
+export async function getSupergraph(req: Request, res: Response) {
+	const sdl = await getSuperGraphSchema(connection);
+
+	res.setHeader('content-type', 'text/plain');
+	res.send(sdl);
 }

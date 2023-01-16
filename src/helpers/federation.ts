@@ -35,3 +35,24 @@ export function composeAndValidateSchema(servicesSchemaMap) {
 
 	return schema;
 }
+
+export function getSuperGraph(servicesSchemaMap): string {
+	try {
+		const serviceList = servicesSchemaMap.map((schema) => {
+			const typeDefs = parse(schema.type_defs);
+
+			return {
+				name: schema.name,
+				url: schema.url,
+				typeDefs,
+			};
+		});
+
+		const { supergraphSdl } = composeServices(serviceList);
+		return supergraphSdl;
+	} catch (error) {
+		logger.error(error.message);
+
+		throw error;
+	}
+}
