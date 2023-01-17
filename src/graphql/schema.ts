@@ -53,6 +53,7 @@ export default gql`
 			startDate: Date!
 			endDate: Date!
 		): [ClientFieldUsageTrack!]!
+		routerConfig: RouterConfigResult!
 	}
 
 	union SearchResult = Service | SchemaDefinition
@@ -336,4 +337,10 @@ export default gql`
 	union TypeInstanceDetailResponse =
 		  TypeInstanceDetail
 		| OperationInstanceDetail
+
+	type RouterConfigResult {
+		id: ID!
+		minDelaySeconds: Int!
+		supergraphSdl: String!
+	}
 `;

@@ -8,5 +8,5 @@ Feature: As a customer
 		Then the response status code should be 200
 		And the response should contains the text:
 		"""
-    @link(url: "https://specs.apollo.dev/join/v0.2", for: EXECUTION)
+@link(url: \"https://specs.apollo.dev/join/v0.2\", for: EXECUTION)
 		"""

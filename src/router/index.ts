@@ -51,7 +51,7 @@ router.get('/persisted_query', asyncWrap(persistedQuery.get));
 router.post('/persisted_query', asyncWrap(persistedQuery.create));
 
 router.get('/schema/latest', asyncWrap(schema.composeLatest));
-router.get('/supergraph', asyncWrap(schema.getSupergraph));
+router.get('/supergraph', asyncWrap(schema.getSuperGraph));
 router.post('/schema/compose', asyncWrap(schema.compose));
 router.post('/schema/push', asyncWrap(schema.push));
 router.post('/schema/diff', asyncWrap(schema.diff));

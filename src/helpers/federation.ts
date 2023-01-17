@@ -3,6 +3,10 @@ import { composeServices } from '@apollo/composition';
 
 import { PublicError } from './error';
 import { logger } from '../logger';
+import { createHash } from 'crypto';
+
+const DEFAULT_SUPER_GRAPH_MIN_DELAY_SECONDS = 30;
+const SUPER_GRAPH_ID_SIZE = 6;
 
 export function composeAndValidateSchema(servicesSchemaMap) {
 	let schema;
@@ -36,23 +40,31 @@ export function composeAndValidateSchema(servicesSchemaMap) {
 	return schema;
 }
 
-export function getSuperGraph(servicesSchemaMap): string {
-	try {
-		const serviceList = servicesSchemaMap.map((schema) => {
-			const typeDefs = parse(schema.type_defs);
+export function getSuperGraph(servicesSchemaMap): {
+	id: string;
+	minDelaySeconds: number;
+	supergraphSdl: string;
+} {
+	const serviceList = servicesSchemaMap.map((schema) => {
+		const typeDefs = parse(schema.type_defs);
 
-			return {
-				name: schema.name,
-				url: schema.url,
-				typeDefs,
-			};
-		});
+		return {
+			name: schema.name,
+			url: schema.url,
+			typeDefs,
+		};
+	});
 
-		const { supergraphSdl } = composeServices(serviceList);
-		return supergraphSdl;
-	} catch (error) {
-		logger.error(error.message);
+	const { supergraphSdl } = composeServices(serviceList);
 
-		throw error;
-	}
+	const id = createHash('md5')
+		.update(supergraphSdl)
+		.digest('hex')
+		.slice(0, SUPER_GRAPH_ID_SIZE);
+
+	const minDelaySeconds = process.env.SUPER_GRAPH_MIN_DELAY_SECONDS
+		? parseInt(process.env.SUPER_GRAPH_MIN_DELAY_SECONDS, 10)
+		: DEFAULT_SUPER_GRAPH_MIN_DELAY_SECONDS;
+
+	return { id, minDelaySeconds, supergraphSdl };
 }

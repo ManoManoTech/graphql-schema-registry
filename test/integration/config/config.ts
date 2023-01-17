@@ -40,7 +40,7 @@ BeforeAll({ timeout: 60000 * 1000 }, async () => {
 	console.log('Starting Tests...');
 
 	setDefaultTimeout(20 * 1000);
-	const dbContainer = await new GenericContainer('mysql:8.0')
+	const dbContainer = await new GenericContainer('mysql:8')
 		.withExposedPorts(3306)
 		.withEnvironment({
 			SERVICE_3306_NAME: 'gql-schema-registry-db',

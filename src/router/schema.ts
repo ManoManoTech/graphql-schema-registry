@@ -1,3 +1,9 @@
+import {
+	convertNodeHttpToRequest,
+	isHttpQueryError,
+	runHttpQuery,
+} from 'apollo-server-core';
+import { NextFunction, Request, Response } from 'express';
 import Joi from 'joi';
 import {
 	getAndValidateSchema,
@@ -5,7 +11,6 @@ import {
 	pushAndValidateSchema,
 	deactivateSchema,
 	diffSchemas,
-	getSuperGraphSchema,
 } from '../controller/schema';
 import { connection } from '../database';
 import config from '../config';
@@ -13,8 +18,7 @@ import * as kafka from '../kafka';
 import { ClientUsageController } from '../controller/clientUsage';
 import { Change } from '@graphql-inspector/core';
 import { BreakingChangeHandler } from '../controller/breakingChange';
-import { Request, Response } from 'express';
-import { logger } from '../logger';
+import { getServer } from '../graphql';
 
 export async function composeLatest(req, res) {
 	const schema = await getAndValidateSchema(connection, false, false);
@@ -157,9 +161,52 @@ export async function usage(req, res) {
 	});
 }
 
-export async function getSupergraph(req: Request, res: Response) {
-	const sdl = await getSuperGraphSchema(connection);
+export async function getSuperGraph(
+	req: Request,
+	res: Response,
+	next: NextFunction
+) {
+	const apolloServer = getServer();
 
-	res.setHeader('content-type', 'text/plain');
-	res.send(sdl);
+	try {
+		const { graphqlResponse, responseInit } = await runHttpQuery(
+			[],
+			{
+				method: req.method,
+				options: () =>
+					apolloServer.createGraphQLServerOptions(req, res),
+				query: {
+					query: `\
+query SuperGraphDl {
+  routerConfig {
+      __typename
+      id
+      supergraphSdl
+      minDelaySeconds
+  }
+}`,
+				},
+				request: convertNodeHttpToRequest(req),
+			},
+			apolloServer.csrfPreventionRequestHeaders
+		);
+
+		if (responseInit.headers) {
+			for (const [name, value] of Object.entries(responseInit.headers)) {
+				res.setHeader(name, value);
+			}
+		}
+		res.status(responseInit.status || 200).send(graphqlResponse);
+	} catch (error) {
+		if (!isHttpQueryError(error)) {
+			return next(error);
+		}
+
+		if (error.headers) {
+			for (const [name, value] of Object.entries(error.headers)) {
+				res.setHeader(name, value);
+			}
+		}
+		res.status(error.statusCode).send(error.message);
+	}
 }

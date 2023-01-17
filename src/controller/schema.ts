@@ -6,7 +6,6 @@ import schemaModel from '../database/schema';
 import { BreakDownSchemaCaseUse } from './breakdown';
 
 import { logger } from '../logger';
-import { Knex } from 'knex';
 
 export async function getAndValidateSchema(
 	trx,
@@ -105,20 +104,4 @@ export async function diffSchemas({ service }) {
 			);
 		}
 	});
-}
-
-export async function getSuperGraphSchema(
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	connection: Knex<any, unknown[]>
-): Promise<string> {
-	try {
-		const schemas = await schemaModel.getLastUpdatedForActiveServices({
-			trx: connection,
-		});
-
-		return federationHelper.getSuperGraph(schemas);
-	} catch (error) {
-		logger.error(`error in getSuperGraphSchema ${error.message}`);
-		throw error;
-	}
 }
