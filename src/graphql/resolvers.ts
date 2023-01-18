@@ -20,7 +20,7 @@ import getTypeInstance from './resolvers/getTypeInstance';
 import getOperationUsageTrack from './resolvers/getOperationUsageTrack';
 import getEntityUsageTrack from './resolvers/getEntityUsageTrack';
 import getFieldUsageTrack from './resolvers/getFieldUsageTrack';
-import { getSuperGraph } from '../helpers/federation';
+import routerConfig from './resolvers/getRouterConfig';
 
 const dateTime = new Intl.DateTimeFormat('en-GB', {
 	weekday: 'long',
@@ -123,12 +123,7 @@ export default {
 		getOperationUsageTrack,
 		getEntityUsageTrack,
 		getFieldUsageTrack,
-		routerConfig: async () => {
-			const schemas = await schemaModel.getLastUpdatedForActiveServices({
-				trx: connection,
-			});
-			return getSuperGraph(schemas);
-		},
+		routerConfig,
 	},
 	Mutation: {
 		deactivateSchema: async (parent, { id }) => {

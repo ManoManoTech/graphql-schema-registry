@@ -1,0 +1,6 @@
+query reportConfigQuery {
+	routerConfig {
+		id
+		supergraphSdl
+	}
+}

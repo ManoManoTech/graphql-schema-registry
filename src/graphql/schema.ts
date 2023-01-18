@@ -53,7 +53,11 @@ export default gql`
 			startDate: Date!
 			endDate: Date!
 		): [ClientFieldUsageTrack!]!
-		routerConfig: RouterConfigResult!
+		routerConfig(
+			ref: String
+			apiKey: String
+			ifAfterId: ID
+		): RouterConfigResult!
 	}
 
 	union SearchResult = Service | SchemaDefinition
