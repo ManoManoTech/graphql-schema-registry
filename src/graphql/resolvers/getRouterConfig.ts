@@ -11,9 +11,9 @@ export default async () => {
 		trx: connection,
 	});
 
-	const supergraphSdl = getSuperGraph(schemas);
+	const supergraphSDL = getSuperGraph(schemas);
 	const id = createHash('md5')
-		.update(supergraphSdl)
+		.update(supergraphSDL)
 		.digest('hex')
 		.slice(0, SUPER_GRAPH_ID_SIZE);
 
@@ -21,5 +21,5 @@ export default async () => {
 		? parseInt(process.env.SUPER_GRAPH_MIN_DELAY_SECONDS, 10)
 		: DEFAULT_SUPER_GRAPH_MIN_DELAY_SECONDS;
 
-	return { id, minDelaySeconds, supergraphSdl };
+	return { id, minDelaySeconds, supergraphSDL };
 };

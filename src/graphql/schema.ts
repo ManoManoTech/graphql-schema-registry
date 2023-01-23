@@ -345,6 +345,6 @@ export default gql`
 	type RouterConfigResult {
 		id: ID!
 		minDelaySeconds: Int!
-		supergraphSdl: String!
+		supergraphSDL: String!
 	}
 `;
