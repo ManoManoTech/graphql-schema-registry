@@ -41,6 +41,17 @@ export const commonResolvers = {
 			return null;
 		},
 	},
+	RouterConfigResponse: {
+		__resolveType(obj) {
+			if (obj.supergraphSDL) {
+				return 'RouterConfigResult';
+			}
+			if (obj.code) {
+				return 'FetchError';
+			}
+			return null;
+		},
+	},
 };
 
 export default {

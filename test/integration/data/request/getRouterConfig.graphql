@@ -1,6 +1,14 @@
 query reportConfigQuery {
 	routerConfig {
-		id
-		supergraphSDL
+		__typename
+		... on RouterConfigResult {
+			id
+			supergraphSDL
+		}
+		... on FetchError {
+			code
+			message
+			minDelaySeconds
+		}
 	}
 }
