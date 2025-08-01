@@ -245,7 +245,7 @@ Feature: As a customer
 		{
 		  "name": "Reviews",
 		  "version": "newest",
-		  "type_defs": "type User @key(fields: \"email\") { email: String! reviews: [Review] } type Review { id: ID! body: String }"
+		  "type_defs": "type User @key(fields: \"email\", resolvable: false) { email: String! reviews: [Review] } type Review { id: ID! body: String }"
 		}
 		"""
 		Then the response status code should be 200
@@ -264,6 +264,53 @@ Feature: As a customer
 			},
 			"path": "User",
 			"type": "DIRECTIVE_ARGUMENT_ADDED"
+		  }]
+		}
+		"""
+
+	Scenario: Checking keys with different schemas (owner graph)
+		Given the database is imported from 'breakdown_schema_db'
+		And I send a "POST" request to "/schema/push" with body:
+		"""
+		{
+		  "name": "User",
+		  "version": "newest",
+		  "type_defs": "type Query { getUser: User } type User @key(fields: \"id\") { id: ID! name: String }"
+		}
+		"""
+		And I send a "POST" request to "/schema/push" with body:
+		"""
+		{
+		  "name": "Email",
+		  "version": "newest",
+		  "type_defs": "type Query { getEmails: User } type User @key(fields: \"id\", resolvable: false) { id: ID! name: String }"
+		}
+		"""
+		Then I send a "POST" request to "/schema/diff" with body:
+		"""
+		{
+		  "name": "User",
+		  "version": "newest",
+		  "type_defs": "type Query { getUser: User } type User @key(fields: \"id\") @key(fields: \"email\") { id: ID! name: String, email: String! }"
+		}
+		"""
+		Then the response status code should be 200
+		And the response should be in JSON and contain:
+		"""
+		{
+		  "success": true,
+		  "data": [{
+			"criticality": {
+				"level": "NON_BREAKING"
+			},
+			"message": "Field 'email' was added to object type 'User'",
+			"meta": {
+				"addedFieldName": "email",
+				"typeName": "User",
+                "typeType": "object type"
+			},
+			"path": "User.email",
+			"type": "FIELD_ADDED"
 		  }]
 		}
 		"""

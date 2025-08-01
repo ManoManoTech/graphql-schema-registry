@@ -101,6 +101,7 @@ export function checkKeySanity(servicesSchemaMap, service: Service): Change[] {
 type KeyDirective = {
 	fields: string;
 	serviceName: string;
+	isResolvable;
 };
 
 type TypeKeyMap = Map<string, KeyDirective[]>;
@@ -132,6 +133,15 @@ function extractKeysFromSDL(
 						? fieldsArg.value.value
 						: '';
 
+				const resolvableKeyPresent = key.arguments?.find(
+					(arg) => arg.name.value === 'resolvable'
+				);
+				const isResolvable = resolvableKeyPresent
+					? resolvableKeyPresent.value.kind === 'BooleanValue'
+						? resolvableKeyPresent.value.value
+						: true
+					: true;
+
 				const normalizedFieldsValue = normalizeKeyFields(fieldsValue);
 
 				if (!keyMap.has(node.name.value)) {
@@ -141,6 +151,7 @@ function extractKeysFromSDL(
 				keyMap.get(node.name.value)?.push({
 					fields: normalizedFieldsValue,
 					serviceName,
+					isResolvable,
 				});
 			}
 		},
@@ -191,6 +202,7 @@ function checkServiceKeysWithinSupergraph(
 		const supergraphTypeKeys = supergraphKeys.get(typeName);
 		for (const key of keys) {
 			if (
+				!key.isResolvable &&
 				supergraphTypeKeys &&
 				!supergraphTypeKeys.some((k) => k.fields === key.fields)
 			) {
